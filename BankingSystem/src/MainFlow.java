@@ -19,30 +19,30 @@ public class MainFlow {
 		
 	}
 
-	public static void main(String[] args) {
-
-		while(true) {
-			System.out.println("[원하시는 메뉴를 선택하세요]");
-			System.out.println("0. 종료");
-			System.out.println("1. 회원가입");
-			System.out.println("2. 로그인");
-			System.out.println("입력 > ");
-			
-			int accountMenu = scan.nextInt();
-			scan.nextLine();
-			if(accountMenu == 0) {
-				// 종료
-				break;
-			} else if(accountMenu == 1) {
-				// 회원가입
-				;
-			} else if(accountMenu == 2) {
-				// 로그인
-				login();
-			} else {
-				System.out.println("0 이상 2 이하의 숫자로 입력해주세요.");
-			}
-		}
-	}
+//	public static void main(String[] args) {
+//
+//		while(true) {
+//			System.out.println("[원하시는 메뉴를 선택하세요]");
+//			System.out.println("0. 종료");
+//			System.out.println("1. 회원가입");
+//			System.out.println("2. 로그인");
+//			System.out.println("입력 > ");
+//			
+//			int accountMenu = scan.nextInt();
+//			scan.nextLine();
+//			if(accountMenu == 0) {
+//				// 종료
+//				break;
+//			} else if(accountMenu == 1) {
+//				// 회원가입
+//				;
+//			} else if(accountMenu == 2) {
+//				// 로그인
+//				login();
+//			} else {
+//				System.out.println("0 이상 2 이하의 숫자로 입력해주세요.");
+//			}
+//		}
+//	}
 
 }
