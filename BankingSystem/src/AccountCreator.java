@@ -119,6 +119,8 @@ public class AccountCreator {
             if (!isExistedDifferentAcNum) {
                 randomAccessFile.write(userInfo.getBytes());
             }
+            
+            randomAccessFile.close();
 
         } catch (IOException ex) {
             System.err.println(ex);
