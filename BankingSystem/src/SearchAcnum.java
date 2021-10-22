@@ -18,24 +18,28 @@ public class SearchAcnum {
         }else{
             StringTokenizer st=new StringTokenizer(name_id,"_");
             String name=st.nextToken();
-            System.out.printf("[계좌번호 검색 결과]\n이름:%s\n",name);
+            System.out.printf("[계좌번호 검색 결과]\n이름:%s\n\n",name);
             System.out.println("[수행할 동작을 결정하세요]");
             System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.println("1. 송금 가상일자 입력하기");
-            System.out.print("입력 > ");
-            try{
-                if ((menuSelect=sc.nextInt())==0){
-                    System.out.println("메뉴로 돌아가기");//메뉴로 돌아가는 메소드 사용
-                }else if (menuSelect==1){
-                    System.out.println("송금 가상일자 입력하기");// 송금 파트 메소드 사용
-                }else{
-                    System.out.println("0이상 1이하의 숫자로 입력해주세요.");
-                    //재 입력 받기
-                }
-            }catch(Exception e){
-                System.out.println("0이상 1이하의 숫자로 입력해주세요.");
-            }
+            while(true) {
+            	 System.out.print("입력 > ");
+                 try{
+                     if ((menuSelect=sc.nextInt())==0){
+                         System.out.println("메뉴로 돌아가기");//메뉴로 돌아가는 메소드 사용
+                         break;
+                     }else if (menuSelect==1){
+                         System.out.println("송금 가상일자 입력하기");// 송금 파트 메소드 사용
+                         break;
+                     }else{
+                         System.out.println("0이상 1이하의 숫자로 입력해주세요.");
+                     }
+                 }catch(Exception e){
+                     System.out.println("0이상 1이하의 숫자로 입력해주세요.");
+                 }
 
+            }
+           
         }
 
     }
