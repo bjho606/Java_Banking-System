@@ -20,7 +20,7 @@ public class MainFlow {
 	}
 
 	public static void main(String[] args) {
-
+		SearchAcnum.main();
 		while(true) {
 			System.out.println("[원하시는 메뉴를 선택하세요]");
 			System.out.println("0. 종료");

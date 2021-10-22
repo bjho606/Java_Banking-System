@@ -13,7 +13,7 @@ public class SearchAcnum {
         int menuSelect=-1;
         Scanner sc=new Scanner(System.in);
         System.out.println("검색할 계좌번호를 입력하세요.");
-        if ((name_id=inputAcnum()).equals("No result")){
+        if ((name_id=filterInput()).equals("No result")){
             System.out.println("검색결과가 없습니다.");
         }else{
             StringTokenizer st=new StringTokenizer(name_id,"_");
@@ -70,7 +70,7 @@ public class SearchAcnum {
     /*
         입력 받은 문자열이 문법형식과, 의미규칙을 충족하는 지 확인하는 메소드
      */
-    public static String inputAcnum(){
+    public static String filterInput(){
         int hypenCount=-1;
         System.out.print("입력 > ");
         Scanner sc=new Scanner(System.in);
@@ -79,21 +79,21 @@ public class SearchAcnum {
         SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyyMMdd");
         if((hypenCount=isHypenError(acnum))==-1){
             System.out.println("올바른 계좌번호 형식이 아닙니다.");
-            return inputAcnum();
+            return filterInput();
         }else if (hypenCount==0){//하이픈이 0개 존재하는 경우
             //문법 형식 확인
             if(acnum.length()==12&&isDigitAccount(acnum)&&acnum.charAt(0)!='0'){
                 //의미 규칙 확인
-                if (dateCheck(acnum.substring(4))){
+                if (checkDate(acnum.substring(4))){
                     StringBuffer sb=new StringBuffer(acnum);
                     return matchingAcnum(sb.insert(4,"-").toString());
                 }else{
                     System.out.println("계좌 번호의 뒤 8자리는 계좌 생션 년도, 월, 일로 구성되어 있습니다.");
-                    return inputAcnum();
+                    return filterInput();
                 }
             }else{
                 System.out.println("올바른 계좌번호 형식이 아닙니다.");
-                return inputAcnum();
+                return filterInput();
             }
         }else{//하이픈이 1개 존재하는 경우
             try {
@@ -103,19 +103,19 @@ public class SearchAcnum {
                 //문법형식 확인
                 if (preAcnum.length()==4&&isDigitAccount(preAcnum)&&postAcnum.length()==8&&isDigitAccount(postAcnum)&&preAcnum.charAt(0)!='0'){
                     //의미규칙 확인
-                    if (dateCheck(postAcnum)){
+                    if (checkDate(postAcnum)){
                         return matchingAcnum(acnum);
                     }else{
                         System.out.println("계좌 번호의 뒤 8자리는 계좌 생션 년도, 월, 일로 구성되어 있습니다.");
-                        return inputAcnum();
+                        return filterInput();
                     }
                 }else{
                     System.out.println("올바른 계좌번호 형식이 아닙니다.");
-                    return inputAcnum();
+                    return filterInput();
                 }
             }catch (Exception e){
                 System.out.println("올바른 계좌번호 형식이 아닙니다.");
-                return inputAcnum();
+                return filterInput();
             }
         }
     }
@@ -155,7 +155,7 @@ public class SearchAcnum {
     /*
         날짜 형식인지 체크하는 메소드, 날짜 형식이라면 true 리턴, 날짜 형식이 아니라면 false 리턴
      */
-    public static boolean dateCheck(String date) {
+    public static boolean checkDate(String date) {
         SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyyMMdd");
         dateFormatParser.setLenient(false);
         try {
