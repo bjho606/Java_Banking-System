@@ -83,9 +83,8 @@ public class AccountCreator {
     }
 
     public static void run(String name, String id) {
-        // 가상일자 입력받기.
-        // 임시로 정한 가상일자
-        int virtualDate = 20201221;
+        // 가상일자 입력받기.(가상일자 입력프롬프트)
+        int virtualDate = Integer.parseInt(VirtualDate.inputVirtualDate());
 
         // 계좌번호 앞 4자리 입력
         String acNum = createAccountNum(virtualDate);
