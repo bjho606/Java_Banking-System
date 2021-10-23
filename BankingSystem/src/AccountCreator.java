@@ -43,6 +43,8 @@ public class AccountCreator {
                 continue;
             }
             
+            
+            
             isValid = true;
         }
 
@@ -51,7 +53,7 @@ public class AccountCreator {
 
     private static boolean isDuplicatedAcNum(String acNum) {
         try {
-            File file = new File("src/acnums_list.txt");
+            File file = new File("acnums_list.txt");
             FileReader filereader = new FileReader(file);
             BufferedReader br = new BufferedReader(filereader);
 
@@ -93,7 +95,7 @@ public class AccountCreator {
     //byte 단위로 쓰는 것이 편하다
     private static void addAccountNumInListFile(String acNum, String name, String id) {
         try {
-            RandomAccessFile randomAccessFile = new RandomAccessFile("src/acnums_list.txt", "rw");
+            RandomAccessFile randomAccessFile = new RandomAccessFile("acnums_list.txt", "rw");
 
             String line;
             boolean isExistedDifferentAcNum = false;
@@ -130,7 +132,7 @@ public class AccountCreator {
     private static void makeAccountNumFileInUserDirectory(String acNum, String name, String id) {
         try {
         	// 회원가입, 로그인으로 이미 해당폴더 만들어져있는 상황
-            String rootPath = "src/" + name + "_" + id;
+            String rootPath = name + "_" + id;
             File f = new File(rootPath);
             if (f.exists() && f.isDirectory()) {
                 File f2 = new File(rootPath + "/" + acNum + ".txt");
