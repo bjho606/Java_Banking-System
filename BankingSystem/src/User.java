@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class User {
-	String name, id;
+	static String name, id;
 	static Scanner scan = new Scanner(System.in);
 	
 	public User(String name, String id) {
@@ -29,7 +29,7 @@ public class User {
 					break;
 				} else if(mainMenuNum == 1) {
 					// 계좌 생성
-					
+					AccountCreator.run(name, id);
 
 /* ------------------- 여기부터 하시면 됩니다 -----------------------------------------*/
 
