@@ -48,7 +48,7 @@ public class AccountCreator {
                 continue;
             }
             
-            System.out.println("계좌번호 " + acNum + "완료되었습니다.");
+            System.out.println("계좌번호 " + acNum + "가 정상적으로 생성되었습니다.\n");
             
             isValid = true;
         }
