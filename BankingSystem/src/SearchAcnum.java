@@ -33,9 +33,11 @@ public class SearchAcnum {
                          break;
                      }else{
                          System.out.println("0이상 1이하의 숫자로 입력해주세요.");
+                         continue;
                      }
                  }catch(Exception e){
                      System.out.println("0이상 1이하의 숫자로 입력해주세요.");
+                     continue;
                  }
 
             }
