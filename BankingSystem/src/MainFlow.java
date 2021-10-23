@@ -9,19 +9,19 @@ import java.util.Scanner;
 
 public class MainFlow {
 	static Scanner scan = new Scanner(System.in);
-	static String regExpMain = "^[0-2]$";
-	static String regExpKor = "^[가-힣\\s]*$";	// 공백 허용
-	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";
-	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%]).{1,}$";
+	// 입력조건 정규식들 
+	static String regExpMain = "^[0-2]$";									// 메뉴 선택
+	static String regExpKor = "^[가-힣\\s]*$";								// 이름 입력 (공백 허용)
+	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";			// 아이디 입력 
+	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%]).{1,}$";	// 비밀번호 입
 	
-
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		while(true) {
 			System.out.println("[원하시는 메뉴를 선택하세요]");
 			System.out.println("0. 종료");
 			System.out.println("1. 회원가입");
 			System.out.println("2. 로그인");
-			System.out.print("\n입력 > ");
+			System.out.print("입력 > ");
 			
 			String accountMenu = scan.nextLine();
 			int accountMenuNum;
@@ -34,15 +34,12 @@ public class MainFlow {
 				} else if(accountMenuNum == 1) {
 					// 회원가입
 					signUp();
-					;
+					System.out.println("\n--------------------------");
 				} else if(accountMenuNum == 2) {
 					// 로그인
 					login();
-					
-/* ---------------------여기부터 다음 작업 추가하면 됩니다.-------------------------- */
-					
+					System.out.println("\n--------------------------");
 				} 
-				
 			} else {
 				System.out.println("\n0 이상 2 이하의 숫자로 입력해주세요.\n");
 			}
@@ -54,6 +51,7 @@ public class MainFlow {
 	public static void signUp() {
 		String name, id, pw;
 		
+		System.out.println("\n--------------------------");
 		System.out.println("< 회원가입 >");
 		// 회원 가입 조건
 		System.out.println("\n계정에 등록할 이름을 입력해주세요.");
@@ -209,8 +207,10 @@ public class MainFlow {
 	// [로그인]
 	public static void login() {
 		String loginId, loginPw;
+		String loginName = "";
 		boolean isMatch = false;
 		
+		System.out.println("\n--------------------------");
 		System.out.println("< 로그인 >");
 		// 로그인 조건
 		while(true) {
@@ -231,6 +231,7 @@ public class MainFlow {
 					String[] words = line.split(" ");
 					if(loginId.equals(words[1]) && loginPw.equals(words[2])) {
 						isMatch = true;
+						loginName = words[0];
 						break;
 					}
 				}
@@ -252,6 +253,9 @@ public class MainFlow {
 		// 로그인 성공 
 		System.out.println("\n로그인에 성공하였습니다.\n\n");
 		
+		// 로그인된 사용자로 객체 생성 (-> 뱅킹 작업)
+		User user = new User(loginName, loginId);
+//		user.printCurrentUser();
 	}
 
 }
