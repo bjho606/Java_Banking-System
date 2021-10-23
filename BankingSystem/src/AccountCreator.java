@@ -15,23 +15,28 @@ public class AccountCreator {
         String acNum = "";
         System.out.println("[계좌생성]\n계좌번호의 앞 4자리 숫자를 입력하세요. (숫자 중복은 허용된다. " +
                 "단, 맨 앞에 0을 쓰면 안되고, 계좌번호의 중복은 허용되지 않는다).");
+        System.out.print("입력>");
 
         while(!isValid) {
             String numOfInput = scanner.nextLine();
             if (numOfInput.contains(" ")) {
                 System.out.println("입력된 계좌번호 앞 4자리 숫자 중 공백이 포함되었습니다. 다시 입력해주세요.");
+                System.out.print("입력>");
                 continue;
             }
             if (numOfInput.length() < 4) {
                 System.out.println("입력된 계좌번호 앞자리 수가 4자리 미만입니다. 다시 입력해주세요.");
+                System.out.print("입력>");
                 continue;
             }
             if (numOfInput.length() > 4) {
                 System.out.println("입력된 계좌번호 앞자리 수가 4자리를 초과했습니다. 다시 입력해주세요.");
+                System.out.print("입력>");
                 continue;
             }
             if (numOfInput.charAt(0) == '0') {
                 System.out.println("맨 앞자리에 0을 적을 수 없습니다. 다시 입력해주세요.");
+                System.out.print("입력>");
                 continue;
             }
 
@@ -43,7 +48,7 @@ public class AccountCreator {
                 continue;
             }
             
-            
+            System.out.println("계좌번호 " + acNum + "완료되었습니다.");
             
             isValid = true;
         }
