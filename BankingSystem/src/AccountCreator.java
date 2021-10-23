@@ -41,7 +41,7 @@ public class AccountCreator {
             }
 
             int num = Integer.parseInt(numOfInput);
-            acNum = num + "_" + virtualDate;
+            acNum = num + "-" + virtualDate;
 
             if (isDuplicatedAcNum(acNum)) {
                 System.out.println("입력된 계좌번호가 이미 존재합니다. 계좌번호의 앞 4자리를 다시 입력해주세요.");
@@ -151,11 +151,11 @@ public class AccountCreator {
     }
 
 	
-	//임시로 적은 이름과 ID
-	public static void main(String[] args) {
-		String name = "김보규";
-		String id = "qhrb";
-		
-		run(name, id);
-	}
+//	//임시로 적은 이름과 ID
+//	public static void main(String[] args) {
+//		String name = "김보규";
+//		String id = "qhrb";
+//		
+//		run(name, id);
+//	}
 }
