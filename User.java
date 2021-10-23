@@ -1,57 +1,402 @@
+package banksystem;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class User {
 	String name, id;
 	Scanner scan = new Scanner(System.in);
-
+	String account;
+	
 	public User(String name, String id) {
 		this.name = name;
 		this.id = id;
 
 		while(true) {
-			System.out.println("[���Ͻô� �޴��� �����ϼ���]");
-			System.out.println("0. �α׾ƿ�");
-			System.out.println("1. ���� ����");
-			System.out.println("2. ���� ����");
-			System.out.print("�Է� > ");
-
+			System.out.println("[원하시는 메뉴를 선택하세요]");
+			System.out.println("0. 로그아웃");
+			System.out.println("1. 계좌 생성");
+			System.out.println("2. 계좌 선택");
+			System.out.print("입력 > ");
+			
 			String mainMenu = scan.nextLine();
 			int mainMenuNum;
-
+			
 			if(mainMenu.matches(MainFlow.regExpMain)) {
 				mainMenuNum = Integer.parseInt(mainMenu);
 				if(mainMenuNum == 0) {
-					// �α׾ƿ�
-					System.out.println("\n�α׾ƿ� �մϴ�.\n");
+					// 로그아웃
+					System.out.println("\n로그아웃 합니다.\n");
 					break;
 				} else if(mainMenuNum == 1) {
-					// ���� ����
-/* ------------------- ������� �Ͻø� �˴ϴ� -----------------------------------------*/
+					// 계좌 생성
+/* ------------------- 여기부터 하시면 됩니다 -----------------------------------------*/
 
 				} else if(mainMenuNum == 2) {
-					// ���� ����
-/* ------------------- ������� �Ͻø� �˴ϴ� -----------------------------------------*/
+					// 계좌 선택
+					try{
+						File file = new File("./acum_list.txt");
+						FileReader fr = new FileReader(file);	
+						BufferedReader br = new BufferedReader(fr);
+						
+						
+							
+						String aclist;
+						loop:
+						while((aclist = br.readLine()) != null) {
+							String[] list_name = aclist.split(" ");
+							
+							ArrayList<Integer> al = new ArrayList<>();
+							
+							if(name.equals(list_name[0])) {
+								for(int i=2; i<list_name.length; i++) {
+									String[] list_acum = list_name[i].split("-");
+									//al.add(Integer.parseInt(list_name[i]));
+									al.add(Integer.parseInt(list_acum[0]));
+								}
+								Collections.sort(al);
+								
+								System.out.println("[이름]");
+								System.out.println(list_name[0] + "\n");
+								System.out.println("[계좌번호 목록]");
+								System.out.println("0. 메인 메뉴로 돌아가기");
+								
+								String[] acc = new String[al.size()];
+								for(int i=0; i<al.size(); i++) {
+									for(int j=2; j<list_name.length; j++) {
+										int sp = Integer.parseInt(list_name[j].split("-")[0]);
+										if(sp == al.get(i)) {
+											System.out.println(i+1 + ". " + list_name[j]);
+											acc[i] = list_name[j];
+										}
+									}
+								}
+								
+								System.out.print("입력 > ");
+								String acum;
+								int user_acum;
+								while(true) {
+									try {
+										acum = scan.nextLine();
+										acum = acum.trim();
+										user_acum = Integer.parseInt(acum);
+									}catch(NumberFormatException e) {
+										System.out.println("0이상 3이하의 숫자로 입력해주세요.");
+										System.out.print("입력> ");
+										continue;
+									}
+									if(user_acum == 0)
+										//0입력했을 때 메인 메뉴로 돌아가는 코드 짜야됨.
+										break loop;
+									account = acc[user_acum-1]; 
+									break;
+								}
+								
+		
+								break;
+							}
+						}
+
+						
+						br.close();
+					}catch(FileNotFoundException e) {
+						
+					}catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
-					// 0. ���θ޴�
 					
-					// 1. ������ �˻�
-					SearchAcholderName searchAcholderName = new SearchAcholderName();
-					searchAcholderName.searchAcholderName(null);
 					
-					// 2. ���¹�ȣ �˻�
+					while(true) {
+						System.out.println("[원하시는 메뉴를 선택하세요]");
+						System.out.println("0. 메인 메뉴로 돌아가기");
+						System.out.println("1. 통장내역 확인");
+						System.out.println("2. 입/출금");
+						System.out.println("3. 송금");
+						System.out.print("입력 > ");
+						
+						String sub_mn;
+						int sub_menu;
+						try {
+							sub_mn = scan.nextLine();
+							sub_mn = sub_mn.trim();
+							sub_menu = Integer.parseInt(sub_mn);
+						}catch(NumberFormatException e) {
+							System.out.println("0이상 3이하의 숫자로 입력해주세요.");
+							System.out.print("입력> ");
+							continue;
+						}
+						
+						if(sub_menu == 0) {
+							//메인메뉴로 이동
+							break;
+						}else if(sub_menu == 1) {
+							//통장내역 확인
+							
+							break;
+						}else if(sub_menu == 2) {
+							//입출금
+							Scanner scan = new Scanner(System.in);
+							
+							System.out.println("[입/출금 메뉴 선택]");
+							System.out.println("0 메인메뉴로 돌아가기");
+							System.out.println("1 입금");
+							System.out.println("2 출금");
+							System.out.print("입력> ");
+							
+							
+							String ssub_mn;
+							int ssub_menu;
+							while(true) {
+
+								try {
+									ssub_mn = scan.nextLine();
+									ssub_mn = ssub_mn.trim();
+									ssub_menu = Integer.parseInt(ssub_mn);
+								}catch(NumberFormatException e) {
+									System.out.println("0이상 2이하의 숫자로 입력해주세요.");
+									System.out.print("입력> ");
+									continue;
+								}
+								
+								
+								if(ssub_menu == 0) {
+									//메인메뉴로 이동
+									break;
+								}else if(ssub_menu == 1) {
+								
+									//가상일자 함수
+									
+									System.out.println("가상일자(YYYYMMDD)를 입력해주세요.");
+									System.out.print("입력> ");
+									int date = scan.nextInt();
+									scan.nextLine();
+
+							
+									try {
+										String f = "./" + this.name + "_" + this.id + "/" + this.account + ".txt";
+										File file = new File(f);
+										FileWriter fw = new FileWriter(file, true);
+										BufferedWriter bw = new BufferedWriter(fw);
+										PrintWriter pw = new PrintWriter(bw, true);
+											
+										RandomAccessFile raf = new RandomAccessFile(file, "r");
+										
+										long fileSize = raf.length();
+										
+										long pos = fileSize - 1;
+
+										while(true) {
+											raf.seek(pos);
+											if(raf.readByte()=='\n'){
+												break;
+											}
+											pos--;
+										}
+										
+										raf.seek(pos+1);
+										String lastline = raf.readLine();
+										
+										String[] last = lastline.split(" ");
+										int cur_money = Integer.parseInt(last[2]);
+										
+										raf.close();
+										
+										String in;
+										int in_money;
+										
+										System.out.println("[입금]");
+										
+										while(true) {
+											System.out.println("입금액을 입력하세요 (메인메뉴로 돌아가기 : 0)");
+											System.out.print("입력> ");
+
+											try{	
+												in = scan.nextLine(); 
+												in = in.trim();
+												in_money = Integer.parseInt(in);
+											}catch(NumberFormatException e) {
+												System.out.println("문법 형식에 위배된 입금액입니다.");
+												continue;
+											}
+
+											if(in_money == 0) {
+												break;
+												//메인메뉴로 이동
+											}
+											else if(in_money >= 1 && in_money <= 100000 && in_money <= cur_money){
+												break;
+											}
+											else if(in_money < 1 || in_money > 100000 || in_money > cur_money) {
+												System.out.println("입금 가능 금액이 아닙니다.");
+											}
+											else if(in.isBlank()){
+												System.out.println("문법 형식에 위배된 입금액입니다.");
+											}
+										}
+
+										pw.print('\n');
+										pw.print(0);
+										pw.print(' ');
+										pw.print(in_money);
+										pw.print(' ');
+										pw.print(cur_money + in_money);
+										pw.print(' ');
+										pw.print(date);
+										
+										pw.flush();
+										pw.close();
+										
+										
+									} catch (FileNotFoundException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}catch (IOException e) {
+										e.printStackTrace();
+									}
+									
+									
+									break;
+									
+									
+								}else if(ssub_menu == 2) {
+					                //가상일자 함수
+									
+									System.out.println("가상일자(YYYYMMDD)를 입력해주세요.");
+									System.out.print("입력> ");
+									int date = scan.nextInt();
+									scan.nextLine();
+
+							
+									try {
+										String f = "./" + this.name + "_" + this.id + "/" + this.account + ".txt";
+										File file = new File(f);
+										FileWriter fw = new FileWriter(file, true);
+										BufferedWriter bw = new BufferedWriter(fw);
+										PrintWriter pw = new PrintWriter(bw, true);
+											
+										RandomAccessFile raf = new RandomAccessFile(file, "r");
+
+										long fileSize = raf.length();
+										
+										long pos = fileSize - 1;
+
+										while(true) {
+											raf.seek(pos);
+											if(raf.readByte()=='\n'){
+												break;
+											}
+											pos--;
+										}
+										
+										raf.seek(pos+1);
+										String lastline = raf.readLine();
+										
+										String[] last = lastline.split(" ");
+										int cur_money = Integer.parseInt(last[2]);
+										
+										raf.close();
+										
+										String out;
+										int out_money;
+										
+										System.out.println("[출금]");
+										
+										while(true) {
+											System.out.println("출금액을 입력하세요 (메인메뉴로 돌아가기 : 0)");
+											System.out.print("입력> ");
+
+											try{	
+												out = scan.nextLine(); 
+												out = out.trim();
+												out_money = Integer.parseInt(out);
+											}catch(NumberFormatException e) {
+												System.out.println("문법 형식에 위배된 출금액입니다.");
+												continue;
+											}
+
+											if(out_money == 0) {
+												//메인메뉴로 이동
+												break;
+											}
+											else if(out_money >= 1 && out_money <= 100000 && out_money <= cur_money){
+												break;
+											}
+											else if(out_money < 1 || out_money > 100000 || out_money > cur_money) {
+												System.out.println("출금 가능 금액이 아닙니다.");
+											}
+											else if(out.isBlank()){
+												System.out.println("문법 형식에 위배된 출금액입니다.");
+											}
+										}
+
+										pw.print('\n');
+										pw.print(1);
+										pw.print(' ');
+										pw.print(out_money);
+										pw.print(' ');
+										pw.print(cur_money - out_money);
+										pw.print(' ');
+										pw.print(date);
+										
+										pw.flush();
+										pw.close();
+										
+										
+									} catch (FileNotFoundException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}catch (IOException e) {
+										e.printStackTrace();
+									}
+
+									break;
+								}else {
+									System.out.println("0이상 2이하의 숫자로 입력해주세요");
+									System.out.print("입력> ");
+									continue;
+								}
+							}
+							break;
+						}else if(sub_menu == 3) {
+							//송금
+							
+							break;
+						}else {
+							System.out.println("0이상 2이하의 숫자로 입력해주세요");
+							System.out.print("입력> ");
+							continue;
+						}
+
+					}
 					
+					
+	
+/* ------------------- 여기부터 하시면 됩니다 -----------------------------------------*/
 
 				} 
 				System.out.println();
-
+				
 			} else {
-				System.out.println("\n0 �̻� 2 ������ ���ڷ� �Է����ּ���.\n");
+				System.out.println("\n0 이상 2 이하의 숫자로 입력해주세요.\n");
 			}
 		}
 	}
-
+	
 	public void printCurrentUser() {
 		System.out.println(name + " " + id);
 	}
-
+	
 }
