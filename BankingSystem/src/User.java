@@ -2,12 +2,15 @@ import java.util.Scanner;
 
 public class User {
 	String name, id;
-	Scanner scan = new Scanner(System.in);
+	static Scanner scan = new Scanner(System.in);
 	
 	public User(String name, String id) {
 		this.name = name;
 		this.id = id;
 		
+		mainMenu();
+	}
+	public static void mainMenu() {
 		while(true) {
 			System.out.println("[원하시는 메뉴를 선택하세요]");
 			System.out.println("0. 로그아웃");
@@ -26,10 +29,14 @@ public class User {
 					break;
 				} else if(mainMenuNum == 1) {
 					// 계좌 생성
+					
+
 /* ------------------- 여기부터 하시면 됩니다 -----------------------------------------*/
 
 				} else if(mainMenuNum == 2) {
 					// 계좌 선택
+					
+
 /* ------------------- 여기부터 하시면 됩니다 -----------------------------------------*/
 
 				} 
@@ -40,7 +47,6 @@ public class User {
 			}
 		}
 	}
-	
 	public void printCurrentUser() {
 		System.out.println(name + " " + id);
 	}

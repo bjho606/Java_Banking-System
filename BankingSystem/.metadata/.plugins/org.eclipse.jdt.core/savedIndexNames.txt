@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+C:\3_1.Àü±âÇÁ2\Java_Banking-System\BankingSystem\.metadata\.plugins\org.eclipse.jdt.core
