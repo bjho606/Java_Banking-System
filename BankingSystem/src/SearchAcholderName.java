@@ -8,9 +8,13 @@ import java.util.regex.Pattern;
 public class SearchAcholderName {
 	
 	private static String senderAcnumPath = "";
+	private static String receiverAccountDir = "";
+	private static String receiverAcnumPath = "";
+
+	
 		
-    public static void main(String myAcnum) {
-    	senderAcnumPath = myAcnum+".txt";
+    public static void main(String name_id, String myAcnum) {
+    	senderAcnumPath = name_id + "/" + myAcnum + ".txt";
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
         System.out.println("송금할 사람의 이름을 입력해 주세요");
@@ -64,6 +68,7 @@ public class SearchAcholderName {
         for (int i = 0; i < files.size(); i++) {
             System.out.println(i + ". " + files.get(i));
         }
+
         selectAcholderName(files);
     }
 
@@ -81,6 +86,7 @@ public class SearchAcholderName {
         if (selectNum == 0) {
            User.mainMenu(); // 메인으로
         } else {
+        	receiverAccountDir = files.get(selectNum);
             searchAcnum(files.get(selectNum)); // 해당 계좌주의 계좌번호 선택으로 이동
         }
     }
@@ -140,10 +146,11 @@ public class SearchAcholderName {
         if (selectNum == 0) {
             User.mainMenu(); // 메인으로
         } else {
+        	receiverAcnumPath = receiverAccountDir + "/" + files.get(selectNum);
             System.out.println("송금을 시작합니다");
-            System.out.println(senderAcnumPath + "에서 "+ files.get(selectNum) + " 로 " + "송금을 시작합니다");
+//            System.out.println(senderAcnumPath + "에서 "+ receiverAcnumPath + " 로 " + "송금을 시작합니다"); // 확인용
             VirtualDate.inputVirtualDate();
-            Remit.inputRemit(senderAcnumPath, files.get(selectNum));
+            Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
         }
     }
 }

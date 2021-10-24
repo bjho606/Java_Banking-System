@@ -17,12 +17,12 @@ public class User {
 	static Scanner scan = new Scanner(System.in);
 	static String account;
 	static String name_id;
-	static String acnumFile = account + ".txt";
+	static String acnumFile = "";
 	
 	public User(String name, String id) {
 		this.name = name;
 		this.id = id;
-		this.name_id = "./"+ this.name + "_" + this.id;
+		this.name_id = this.name + "_" + this.id;
 		
 		printCurrentUser();
 		
@@ -89,7 +89,7 @@ public class User {
 							break;
 						}else if(sub_menu == 3) {
 							//송금
-							SearchTypeSelectMenu.main(account);
+							SearchTypeSelectMenu.main(name_id, account);
 							break;
 						}else {
 							System.out.println("0이상 2이하의 숫자로 입력해주세요");
@@ -170,6 +170,7 @@ public class User {
 							//0입력했을 때 메인 메뉴로 돌아가는 코드 짜야됨.
 						}else if(user_acum <= al.size() & user_acum > 0) {
 							account = acc[user_acum-1]; 
+							acnumFile = account + ".txt";
 							break;
 						}else {
 							System.out.println("0이상"+ al.size() + "이하의 숫자로 입력해주세요.");
