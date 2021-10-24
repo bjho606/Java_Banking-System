@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -141,7 +142,11 @@ public class AccountCreator {
             if (f.exists() && f.isDirectory()) {
                 File f2 = new File(rootPath + "/" + acNum + ".txt");
                 FileWriter fw = new FileWriter(f2, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                bw.write("0 0");
 
+                bw.close();
                 fw.close();
             }
         } catch (IOException ex) {
