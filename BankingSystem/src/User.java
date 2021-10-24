@@ -1,3 +1,5 @@
+package banksystem;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -114,37 +116,39 @@ public class User {
 	}
 	
 	
+	
 	//계좌 선택 부분
 	public static int accountSelect() {
 		try{
-			File file = new File("acnums_list.txt");
+			File file = new File("./acums_list.txt");
 			FileReader fr = new FileReader(file);	
 			BufferedReader br = new BufferedReader(fr);
 
 			String aclist;
 			
 			while((aclist = br.readLine()) != null) {
-				
 				String[] list_name = aclist.split(" ");
 				
 				ArrayList<Integer> al = new ArrayList<>();
+				String name_id = name + "_" + id;
 				
-				if(name.equals(list_name[0])) {
-					for(int i=2; i<list_name.length; i++) {
+				if(name_id.equals(list_name[0])) {
+					for(int i=1; i<list_name.length; i++) {
 						String[] list_acum = list_name[i].split("-");
-						al.add(Integer.parseInt(list_acum[0]));
+						al.add(Integer.parseInt(list_acum[1]));
 					}
 					Collections.sort(al);
 					
 					System.out.println("[이름]");
-					System.out.println(list_name[0] + "\n");
+					String[] nameid = list_name[0].split("_");
+					System.out.println(nameid[0] + "\n");
 					System.out.println("[계좌번호 목록]");
 					System.out.println("0. 메인 메뉴로 돌아가기");
 					
 					String[] acc = new String[al.size()];
 					for(int i=0; i<al.size(); i++) {
-						for(int j=2; j<list_name.length; j++) {
-							int sp = Integer.parseInt(list_name[j].split("-")[0]);
+						for(int j=1; j<list_name.length; j++) {
+							int sp = Integer.parseInt(list_name[j].split("-")[1]);
 							if(sp == al.get(i)) {
 								System.out.println(i+1 + ". " + list_name[j]);
 								acc[i] = list_name[j];
@@ -192,5 +196,8 @@ public class User {
 		return -1;
 		
 	}
+	
+	
+
 	
 }
