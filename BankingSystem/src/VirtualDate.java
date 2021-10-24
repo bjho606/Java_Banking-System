@@ -113,7 +113,6 @@ public class VirtualDate {
 		}
 	}
 	public static void modifyFile(File inFile,int type) {
-		System.out.println(type);
 		try {
 			String thisLine = "";
 			
@@ -163,5 +162,18 @@ public class VirtualDate {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static String getDate() {
+		File file = new File("./time.txt");
+		Scanner virtualDateScanner;
+		String date=null;
+		try {
+			virtualDateScanner = new Scanner(file);
+			date = virtualDateScanner.nextLine();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
 	}
 }
