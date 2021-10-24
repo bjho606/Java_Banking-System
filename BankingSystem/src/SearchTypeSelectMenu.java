@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-// �˻� ���� ���� �޴�
+// 검색 종류 선택 메뉴
 public class SearchTypeSelectMenu {
     /*
-        main �޼ҵ�
+        main 메소드
      */
     public static void main() {
         Scanner sc=new Scanner(System.in);
@@ -16,11 +16,10 @@ public class SearchTypeSelectMenu {
             System.out.print("입력 > ");
             
             if ((menuSelect=sc.nextInt())==0){
-               
                 User.mainMenu();
                 break;
             }else if (menuSelect==1){
-				SearchAcholderName.searchAcholderName(); 
+            	SearchAcholderName.searchAcholderName();
                 break;
             }else if(menuSelect==2){
                 SearchAcnum.main();
@@ -30,6 +29,7 @@ public class SearchTypeSelectMenu {
                 continue;
             }
             
+
         }
     }
 }
