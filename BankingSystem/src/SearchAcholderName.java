@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class SearchAcholderName {
-    public static void main(String[] args) {
+    public static void main() {
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
         System.out.println("송금할 사람의 이름을 입력해 주세요");
@@ -46,7 +46,7 @@ public class SearchAcholderName {
         String[] dirs = dir.list(filter);
         if (dirs.length == 0) {
             System.out.println("검색 결과가 없습니다. 메인메뉴로 이동합니다.");
-            // 메인 메뉴로 이동
+            User.mainMenu(); // 메인으로
             return;
         }
         System.out.println("[송금할 사람의 인덱스 번호를 입력해 주세요]");
@@ -75,7 +75,7 @@ public class SearchAcholderName {
         } while (selectNum == -1);
 
         if (selectNum == 0) {
-            // 메인으로 이동
+           User.mainMenu(); // 메인으로
         } else {
             searchAcnum(files.get(selectNum)); // 해당 계좌주의 계좌번호 선택으로 이동
         }
@@ -104,7 +104,7 @@ public class SearchAcholderName {
         String[] acnums = dir.list();
         if (acnums.length == 0) {
             System.out.println("해당 계좌주는 계좌를 소유하고 있지 않아, 송금에 실패하였습니다. 메인메뉴로 돌아갑니다.");
-            // 메인으로 이동
+            User.mainMenu(); //메인으로 이동
             return;
         }
 
@@ -134,7 +134,7 @@ public class SearchAcholderName {
         } while (selectNum == -1);
 
         if (selectNum == 0) {
-            // 메인으로 이동
+            User.mainMenu(); // 메인으로
         } else {
             System.out.println("송금을 시작합니다");
             // 해당 계좌번호에 송금하기 위해, 가상일자 입력 프롬프트로 이동
