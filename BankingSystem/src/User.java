@@ -117,13 +117,14 @@ public class User {
 	//계좌 선택 부분
 	public static int accountSelect() {
 		try{
-			File file = new File("./acums_list.txt");
+			File file = new File("acnums_list.txt");
 			FileReader fr = new FileReader(file);	
 			BufferedReader br = new BufferedReader(fr);
 
 			String aclist;
 			
 			while((aclist = br.readLine()) != null) {
+				
 				String[] list_name = aclist.split(" ");
 				
 				ArrayList<Integer> al = new ArrayList<>();
