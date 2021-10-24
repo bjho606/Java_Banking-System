@@ -22,7 +22,8 @@ public class SearchTypeSelectMenu {
             	SearchAcholderName.main(name_id, myAcnum);
                 break;
             }else if(menuSelect==2){
-                SearchAcnum.main();
+
+                SearchAcnum.main(name_id,myAcnum);
                 break;
             }else {
                 System.out.println("0이상 2이하의 숫자로 입력해주세요.");

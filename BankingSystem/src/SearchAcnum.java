@@ -5,19 +5,25 @@ import java.util.Scanner;
 
 //계좌번호 검색
 public class SearchAcnum {
-    /*
-        main 메소드
-     */
-    public static void main() {
-        String name_id="";
+
+	private static String senderAcnumPath = "";
+	private static String receiverAcnumPath = "";
+
+	
+    public static void main(String myName_id,String myAcnum) {
+    	senderAcnumPath = myName_id + "/" + myAcnum + ".txt";
+    	
+        
         int menuSelect=-1;
         Scanner sc=new Scanner(System.in);
         System.out.println("검색할 계좌번호를 입력하세요.");
-        if ((name_id=filterInput()).equals("No result")){
+        if ((receiverAcnumPath=filterInput()).equals("No result")){
             System.out.println("검색결과가 없습니다.");
             User.mainMenu();//메인메뉴로 돌아가기
         }else{
-            StringTokenizer st=new StringTokenizer(name_id,"_");
+        	receiverAcnumPath+=".txt";
+        	System.out.println(receiverAcnumPath);
+            StringTokenizer st=new StringTokenizer(receiverAcnumPath,"_");
             String name=st.nextToken();
             System.out.printf("[계좌번호 검색 결과]\n이름:%s\n\n",name);
             System.out.println("[수행할 동작을 결정하세요]");
@@ -26,12 +32,13 @@ public class SearchAcnum {
             while(true) {
                 System.out.print("입력 > ");
                 
-                if ((menuSelect=sc.nextInt())==0){
-                    System.out.println("메뉴로 돌아가기");//메뉴로 돌아가는 메소드 사용
-                    User.mainMenu();
+                if ((menuSelect=sc.nextInt())==0){ 
+                    User.mainMenu();//메뉴로 돌아가는 메소드 사용
                     break;
                 }else if (menuSelect==1){
                     System.out.println("송금 가상일자 입력하기");// 송금 파트 메소드 사용
+                    VirtualDate.inputVirtualDate();
+                    Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
                     break;
                 }else{
                     System.out.println("0이상 1이하의 숫자로 입력해주세요.");
@@ -59,7 +66,7 @@ public class SearchAcnum {
                 String name_id=st.nextToken();
                 while(st.hasMoreTokens()){
                     if (account.equals(st.nextToken())){
-                        return name_id;
+                        return name_id+"/"+account;
                     }
                 }
             }
