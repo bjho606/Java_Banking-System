@@ -15,7 +15,7 @@ public class MainFlow {
 	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";			// 아이디 입력 
 	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%]).{1,}$";	// 비밀번호 입
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		while(true) {
 			System.out.println("  ".trim());
 			System.out.println("[원하시는 메뉴를 선택하세요]");
@@ -188,9 +188,7 @@ public class MainFlow {
 			System.out.print("입력 > ");
 			String tempPw = scan.nextLine();
 			if(!tempPw.matches(regExpPw)) {
-				// ----------------------------------------------------------------------------------------------
-				// 여기 부분 기획서에 특수기호 !@#$% 만 허용한다는 설명 넣어야할 듯..
-				// !@#$% 를 포함하여 다른 특수기호를 누르면 입력이 되는 오류가 있음..
+				// ????????????????????????????????????????????????????
 				System.out.println("비밀번호는 알파벳, 숫자, 특수 기호로만 입력하여 세 종류 모두 사용해야 합니다.");
 				continue;
 			} else if(tempPw.length() < 6 || tempPw.length() > 12) {
@@ -202,6 +200,7 @@ public class MainFlow {
 			}
 		}
 		
+		System.out.println("성공");
 		return pw;
 	}
 
