@@ -5,7 +5,7 @@ public class SearchTypeSelectMenu {
     /*
         main 메소드
      */
-    public static void main() {
+    public static void main(String myAcnum) {
         Scanner sc=new Scanner(System.in);
         int menuSelect=-1;
         System.out.println("[검색 종류 선택 메뉴]");
@@ -19,7 +19,7 @@ public class SearchTypeSelectMenu {
                 User.mainMenu();
                 break;
             }else if (menuSelect==1){
-            	SearchAcholderName.main();
+            	SearchAcholderName.main(myAcnum);
                 break;
             }else if(menuSelect==2){
                 SearchAcnum.main();

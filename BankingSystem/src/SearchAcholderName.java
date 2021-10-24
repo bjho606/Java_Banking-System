@@ -6,7 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class SearchAcholderName {
-    public static void main() {
+	
+	private static String senderAcnumPath = "";
+		
+    public static void main(String myAcnum) {
+    	senderAcnumPath = myAcnum+".txt";
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
         System.out.println("송금할 사람의 이름을 입력해 주세요");
@@ -137,7 +141,9 @@ public class SearchAcholderName {
             User.mainMenu(); // 메인으로
         } else {
             System.out.println("송금을 시작합니다");
-            // 해당 계좌번호에 송금하기 위해, 가상일자 입력 프롬프트로 이동
+            System.out.println(senderAcnumPath + "에서 "+ files.get(selectNum) + " 로 " + "송금을 시작합니다");
+            VirtualDate.inputVirtualDate();
+            Remit.inputRemit(senderAcnumPath, files.get(selectNum));
         }
     }
 }
