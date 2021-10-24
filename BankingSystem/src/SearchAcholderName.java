@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class SearchAcholderName {
-    public static void searchAcholderName(String[] args) {
+    public static void searchAcholderName() {
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
         System.out.println("송금할 사람의 이름을 입력해 주세요");
