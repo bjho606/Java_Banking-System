@@ -46,6 +46,7 @@ public class AccountCreator {
 
             if (isDuplicatedAcNum(acNum)) {
                 System.out.println("입력된 계좌번호가 이미 존재합니다. 계좌번호의 앞 4자리를 다시 입력해주세요.");
+                System.out.print("입력>");
                 continue;
             }
             
@@ -108,9 +109,9 @@ public class AccountCreator {
             	line = new String(line.getBytes("ISO-8859-1"), "UTF-8");
                 if (line.contains(name + "_" + id)) {
                     isExistedDifferentAcNum = true;
-                    randomAccessFile.seek(randomAccessFile.getFilePointer() - 1);
-                    randomAccessFile.write(" ".getBytes());
+                    randomAccessFile.seek(randomAccessFile.getFilePointer());
                     randomAccessFile.write(acNum.getBytes());
+                    randomAccessFile.write(" ".getBytes());
                     break;
                 }
             }
@@ -125,6 +126,7 @@ public class AccountCreator {
             
             if (!isExistedDifferentAcNum) {
                 randomAccessFile.write(userInfo.getBytes());
+                randomAccessFile.write(" ".getBytes());
             }
             
             randomAccessFile.close();
