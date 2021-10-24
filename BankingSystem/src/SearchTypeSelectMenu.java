@@ -19,7 +19,7 @@ public class SearchTypeSelectMenu {
                 User.mainMenu();
                 break;
             }else if (menuSelect==1){
-            	SearchAcholderName.searchAcholderName();
+            	SearchAcholderName.main();
                 break;
             }else if(menuSelect==2){
                 SearchAcnum.main();
