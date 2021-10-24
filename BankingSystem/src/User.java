@@ -3,10 +3,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class User {
 	static String name, id;
 	static Scanner scan = new Scanner(System.in);
+	static String account;
 	
 	public User(String name, String id) {
 		this.name = name;
@@ -14,6 +24,8 @@ public class User {
 		
 		mainMenu();
 	}
+
+
 	public static void mainMenu() {
 		while(true) {
 			System.out.println("[원하시는 메뉴를 선택하세요]");
