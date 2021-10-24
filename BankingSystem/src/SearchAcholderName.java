@@ -6,13 +6,13 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class SearchAcholderName {
-    public static void searchAcholderName() {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
-        System.out.println("¼Û±İÇÒ »ç¶÷ÀÇ ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+        System.out.println("ì†¡ê¸ˆí•  ì‚¬ëŒì˜ ì´ë¦„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 
         do {
-            System.out.print("ÀÔ·Â > ");
+            System.out.print("ì…ë ¥ > ");
             AcholderName = sc.nextLine().replaceAll(" ", "");
         } while (!nameIsRight(AcholderName));
 
@@ -20,19 +20,19 @@ public class SearchAcholderName {
     }
 
     public static boolean nameIsRight(String name) {
-        if (!Pattern.matches("^[°¡-ÆR]*$", name)) {
-            System.out.println("°èÁÂÁÖ´Â ¿ÏÀüÇÑ ÇÑ±Û ¹®ÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù");
+        if (!Pattern.matches("^[ê°€-í£]*$", name)) {
+            System.out.println("ê³„ì¢Œì£¼ëŠ” ì™„ì „í•œ í•œê¸€ ë¬¸ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤");
             return false;
         }
         if (name.length() < 2 || name.length() > 5) {
-            System.out.println("°èÁÂÁÖ´Â 2±ÛÀÚ ÀÌ»ó 5±ÛÀÚ ÀÌÇÏ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+            System.out.println("ê³„ì¢Œì£¼ëŠ” 2ê¸€ì ì´ìƒ 5ê¸€ì ì´í•˜ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”");
             return false;
         }
         return true;
     }
 
     /*
-        ÇØ´ç °èÁÂÁÖÀÇ °èÁ¤Á¤º¸ È®ÀÎ
+     	í•´ë‹¹ ê³„ì¢Œì£¼ì˜ ê³„ì •ì •ë³´ í™•ì¸
      */
     public static void searchAcInfo(String acholderName) {
 
@@ -45,14 +45,14 @@ public class SearchAcholderName {
 
         String[] dirs = dir.list(filter);
         if (dirs.length == 0) {
-            System.out.println("°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù. ¸ŞÀÎ¸Ş´º·Î ÀÌµ¿ÇÕ´Ï´Ù.");
-            // ¸ŞÀÎ ¸Ş´º·Î ÀÌµ¿
+            System.out.println("ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤. ë©”ì¸ë©”ë‰´ë¡œ ì´ë™í•©ë‹ˆë‹¤.");
+            // ë©”ì¸ ë©”ë‰´ë¡œ ì´ë™
             return;
         }
-        System.out.println("[¼Û±İÇÒ »ç¶÷ÀÇ ÀÎµ¦½º ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä]");
+        System.out.println("[ì†¡ê¸ˆí•  ì‚¬ëŒì˜ ì¸ë±ìŠ¤ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”]");
 
         List<String> files = new ArrayList<String>();
-        files.add("¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°¡±â");
+        files.add("ë©”ì¸ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°");
 
         for (String i : dirs)
             files.add(i);
@@ -69,15 +69,15 @@ public class SearchAcholderName {
         String input = "";
 
         do {
-            System.out.print("ÀÔ·Â > ");
+            System.out.print("ì…ë ¥ > ");
             input = sc.nextLine();
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 
         if (selectNum == 0) {
-            // ¸ŞÀÎÀ¸·Î ÀÌµ¿
+            // ë©”ì¸ìœ¼ë¡œ ì´ë™
         } else {
-            searchAcnum(files.get(selectNum)); // ÇØ´ç °èÁÂÁÖÀÇ °èÁÂ¹øÈ£ ¼±ÅÃÀ¸·Î ÀÌµ¿
+            searchAcnum(files.get(selectNum)); // í•´ë‹¹ ê³„ì¢Œì£¼ì˜ ê³„ì¢Œë²ˆí˜¸ ì„ íƒìœ¼ë¡œ ì´ë™
         }
     }
 
@@ -88,29 +88,29 @@ public class SearchAcholderName {
                 return result;
             }
         } catch (Exception e) {
-            System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.");
+            System.out.println("ë²”ìœ„ ë‚´ ì •ìˆ˜ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
             return -1;
         }
-        System.out.println("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.");
+        System.out.println("ë²”ìœ„ ë‚´ ì •ìˆ˜ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”");
         return -1;
     }
 
     /*
-        ÇØ´ç °èÁÂÁÖÀÇ °èÁÂ¹øÈ£ È®ÀÎ
+		í•´ë‹¹ ê³„ì¢Œì£¼ì˜ ê³„ì¢Œë²ˆí˜¸ í™•ì¸
      */
     public static void searchAcnum(String name_id) {
         File dir = new File("./"+name_id);
 
         String[] acnums = dir.list();
         if (acnums.length == 0) {
-            System.out.println("¼Û±İ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. ¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°©´Ï´Ù.");
-            // ¸ŞÀÎÀ¸·Î ÀÌµ¿
+            System.out.println("í•´ë‹¹ ê³„ì¢Œì£¼ëŠ” ê³„ì¢Œë¥¼ ì†Œìœ í•˜ê³  ìˆì§€ ì•Šì•„, ì†¡ê¸ˆì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ë©”ì¸ë©”ë‰´ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
+            // ë©”ì¸ìœ¼ë¡œ ì´ë™
             return;
         }
 
-        System.out.println("["+name_id+" ´ÔÀÇ °èÁÂ¹øÈ£ÀÔ´Ï´Ù. ¼Û±İ Èñ¸ÁÇÏ´Â °èÁÂ¹øÈ£ÀÇ ÀÎµ¦½º ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä]");
+        System.out.println("["+name_id+" ë‹˜ì˜ ê³„ì¢Œë²ˆí˜¸ì…ë‹ˆë‹¤. ì†¡ê¸ˆ í¬ë§í•˜ëŠ” ê³„ì¢Œë²ˆí˜¸ì˜ ì¸ë±ìŠ¤ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”]");
         List<String> files = new ArrayList<String>();
-        files.add("¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°¡±â");
+        files.add("ë©”ì¸ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°");
 
         for (String i : acnums)
             files.add(i);
@@ -128,16 +128,16 @@ public class SearchAcholderName {
         String input = "";
 
         do {
-            System.out.print("ÀÔ·Â > ");
+            System.out.print("ì…ë ¥ > ");
             input = sc.nextLine();
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 
         if (selectNum == 0) {
-            // ¸ŞÀÎÀ¸·Î ÀÌµ¿
+            // ë©”ì¸ìœ¼ë¡œ ì´ë™
         } else {
-            System.out.println("¼Û±İÀ» ½ÃÀÛÇÕ´Ï´Ù");
-            // ÇØ´ç °èÁÂ¹øÈ£¿¡ ¼Û±İÇÏ±â À§ÇÏ¿© °¡»óÀÏÀÚ ÀÔ·Â ÇÁ·ÒÇÁÆ®·Î ÀÌµ¿
+            System.out.println("ì†¡ê¸ˆì„ ì‹œì‘í•©ë‹ˆë‹¤");
+            // í•´ë‹¹ ê³„ì¢Œë²ˆí˜¸ì— ì†¡ê¸ˆí•˜ê¸° ìœ„í•´, ê°€ìƒì¼ì ì…ë ¥ í”„ë¡¬í”„íŠ¸ë¡œ ì´ë™
         }
     }
 }
