@@ -1,32 +1,32 @@
 import java.util.Scanner;
 
-// ê²€ìƒ‰ ì¢…ë¥˜ ì„ íƒ ë©”ë‰´
+// °Ë»ö Á¾·ù ¼±ÅÃ ¸Ş´º
 public class SearchTypeSelectMenu {
     /*
-        main ë©”ì†Œë“œ
+        main ¸Ş¼Òµå
      */
     public static void main() {
         Scanner sc=new Scanner(System.in);
         int menuSelect=-1;
-        System.out.println("[ê²€ìƒ‰ ì¢…ë¥˜ ì„ íƒ ë©”ë‰´]");
-        System.out.println("0. ë©”ì¸ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°");
-        System.out.println("1. ê³„ì¢Œì£¼ ê²€ìƒ‰í•˜ê¸°");
-        System.out.println("2. ê³„ì¢Œë²ˆí˜¸ ê²€ìƒ‰í•˜ê¸°");
+        System.out.println("[°Ë»ö Á¾·ù ¼±ÅÃ ¸Ş´º]");
+        System.out.println("0. ¸ŞÀÎ ¸Ş´º·Î µ¹¾Æ°¡±â");
+        System.out.println("1. °èÁÂÁÖ °Ë»öÇÏ±â");
+        System.out.println("2. °èÁÂ¹øÈ£ °Ë»öÇÏ±â");
         while(true) {
-            System.out.print("ì…ë ¥ > ");
+            System.out.print("ÀÔ·Â > ");
             
             if ((menuSelect=sc.nextInt())==0){
-                System.out.println("ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°");//ë©”ë‰´ë¡œ ëŒì•„ê°€ëŠ” ë©”ì†Œë“œ ì‚¬ìš©
+                System.out.println("¸Ş´º·Î µ¹¾Æ°¡±â");//¸Ş´º·Î µ¹¾Æ°¡´Â ¸Ş¼Òµå »ç¿ë
                 User.mainMenu();
                 break;
             }else if (menuSelect==1){
-            	//ê³„ì¢Œì£¼ ê²€ìƒ‰
+				SearchAcholderName.searchAcholderName(); 
                 break;
             }else if(menuSelect==2){
                 SearchAcnum.main();
                 break;
             }else {
-                System.out.println("0ì´ìƒ 2ì´í•˜ì˜ ìˆ«ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+                System.out.println("0ÀÌ»ó 2ÀÌÇÏÀÇ ¼ıÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.");
                 continue;
             }
             
