@@ -87,7 +87,7 @@ public class MainFlow {
 			e.printStackTrace();
 		}
 		
-		System.out.println("\n회원이 등록되었습니다.\n\n");
+		System.out.println("\n회원이 등록되었습니다.");
 	}
 	
 	// [회원가입 - 이름 조건]
@@ -199,7 +199,7 @@ public class MainFlow {
 			}
 		}
 		
-		System.out.println("성공");
+//		System.out.println("성공");
 		return pw;
 	}
 
