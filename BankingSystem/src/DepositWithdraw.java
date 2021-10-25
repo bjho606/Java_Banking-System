@@ -74,13 +74,13 @@ public class DepositWithdraw {
 			
 			raf.seek(pos);
 			pos = pos - 1;
-			System.out.println(pos);
+
 		
 			int cur_money = 0;
 			while(true) {
 				raf.seek(pos);
 				if(raf.readByte()=='\n'){
-					System.out.println(pos);
+
 					break;
 				}
 				pos--;
@@ -94,7 +94,7 @@ public class DepositWithdraw {
 				raf.seek(pos+1);
 				
 				String lastline = raf.readLine();
-				System.out.println(lastline);
+
 			
 				
 				if(lastline != null) {
@@ -183,13 +183,13 @@ public class DepositWithdraw {
 			
 			raf.seek(pos);
 			pos = pos - 1;
-			System.out.println(pos);
+
 		
 			int cur_money = 0;
 			while(true) {
 				raf.seek(pos);
 				if(raf.readByte()=='\n'){
-					System.out.println(pos);
+
 					break;
 				}
 				pos--;
@@ -203,7 +203,7 @@ public class DepositWithdraw {
 				raf.seek(pos+1);
 				
 				String lastline = raf.readLine();
-				System.out.println(lastline);
+
 			
 				
 				if(lastline != null) {
