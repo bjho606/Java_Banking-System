@@ -22,7 +22,11 @@ public class SearchAcnum {
             User.mainMenu();//메인메뉴로 돌아가기
         }else{
         	receiverAcnumPath+=".txt";
-        	System.out.println(receiverAcnumPath);
+
+        	if(senderAcnumPath.equals(receiverAcnumPath)) {
+        		System.out.println("송금계좌와 수신계좌가 같습니다.");
+        		User.mainMenu();
+        	}   	
             StringTokenizer st=new StringTokenizer(receiverAcnumPath,"_");
             String name=st.nextToken();
             System.out.printf("[계좌번호 검색 결과]\n이름:%s\n\n",name);
@@ -36,6 +40,7 @@ public class SearchAcnum {
                     User.mainMenu();//메뉴로 돌아가는 메소드 사용
                     break;
                 }else if (menuSelect==1){
+                	
                     System.out.println("송금 가상일자 입력하기");// 송금 파트 메소드 사용
                     VirtualDate.inputVirtualDate();
                     Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
