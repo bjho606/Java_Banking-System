@@ -1,3 +1,5 @@
+package banksystem;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,10 +59,7 @@ public class DepositWithdraw {
 	//입금 부분
 	public static void deposit(String n, String i, String ac) {
 		//가상일자 함수
-		System.out.println("가상일자(YYYYMMDD)를 입력해주세요.");
-		System.out.print("입력> ");
-		int date = scan.nextInt();
-		scan.nextLine();
+		String v_date = VirtualDate.inputVirtualDate();
 
 
 		try {
@@ -73,24 +72,43 @@ public class DepositWithdraw {
 			RandomAccessFile raf = new RandomAccessFile(file, "r");
 			
 			long fileSize = raf.length();
-			
 			long pos = fileSize - 1;
-
+			
+			raf.seek(pos);
+			pos = pos - 1;
+			System.out.println(pos);
+		
+			int cur_money = 0;
 			while(true) {
 				raf.seek(pos);
 				if(raf.readByte()=='\n'){
+					System.out.println(pos);
 					break;
 				}
 				pos--;
+				if(pos == 0) {
+					cur_money = 0;
+					break;
+				}
+			}
+
+			if(pos != 0) {
+				raf.seek(pos+1);
+				
+				String lastline = raf.readLine();
+				System.out.println(lastline);
+			
+				
+				if(lastline != null) {
+					//pw.print('\n');
+					String[] last = lastline.split(" ");
+					cur_money = Integer.parseInt(last[2]);
+				}
 			}
 			
-			raf.seek(pos+1);
-			String lastline = raf.readLine();
-			
-			String[] last = lastline.split(" ");
-			int cur_money = Integer.parseInt(last[2]);
 			
 			raf.close();
+			
 			
 			String in;
 			int in_money;
@@ -125,14 +143,14 @@ public class DepositWithdraw {
 				}
 			}
 
-			pw.print('\n');
+			
 			pw.print(0);
 			pw.print(' ');
 			pw.print(in_money);
 			pw.print(' ');
 			pw.print(cur_money + in_money);
 			pw.print(' ');
-			pw.print(date);
+			pw.print(v_date);
 			
 			pw.flush();
 			pw.close();
@@ -150,10 +168,7 @@ public class DepositWithdraw {
 	//출금 부분
 	public static void withdraw(String n, String i, String ac) {
 		//가상일자 함수
-		System.out.println("가상일자(YYYYMMDD)를 입력해주세요.");
-		System.out.print("입력> ");
-		int date = scan.nextInt();
-		scan.nextLine();
+		String v_date = VirtualDate.inputVirtualDate();
 
 
 		try {
@@ -163,25 +178,43 @@ public class DepositWithdraw {
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw, true);
 				
-			RandomAccessFile raf = new RandomAccessFile(f, "r");
-
-			long fileSize = raf.length();
+			RandomAccessFile raf = new RandomAccessFile(file, "r");
 			
+			long fileSize = raf.length();
 			long pos = fileSize - 1;
-
+			
+			raf.seek(pos);
+			pos = pos - 1;
+			System.out.println(pos);
+		
+			int cur_money = 0;
 			while(true) {
 				raf.seek(pos);
 				if(raf.readByte()=='\n'){
+					System.out.println(pos);
 					break;
 				}
 				pos--;
+				if(pos == 0) {
+					cur_money = 0;
+					break;
+				}
+			}
+
+			if(pos != 0) {
+				raf.seek(pos+1);
+				
+				String lastline = raf.readLine();
+				System.out.println(lastline);
+			
+				
+				if(lastline != null) {
+					//pw.print('\n');
+					String[] last = lastline.split(" ");
+					cur_money = Integer.parseInt(last[2]);
+				}
 			}
 			
-			raf.seek(pos+1);
-			String lastline = raf.readLine();
-			
-			String[] last = lastline.split(" ");
-			int cur_money = Integer.parseInt(last[2]);
 			
 			raf.close();
 			
@@ -218,14 +251,14 @@ public class DepositWithdraw {
 				}
 			}
 
-			pw.print('\n');
+
 			pw.print(1);
 			pw.print(' ');
 			pw.print(out_money);
 			pw.print(' ');
 			pw.print(cur_money - out_money);
 			pw.print(' ');
-			pw.print(date);
+			pw.print(v_date);
 			
 			pw.flush();
 			pw.close();
