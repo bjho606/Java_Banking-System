@@ -17,9 +17,6 @@ public class SearchAcholderName {
     	senderAccountDir = name_id;
     	senderAcnum = myAcnum + ".txt";
     	senderAcnumPath = name_id + "/" + myAcnum + ".txt";
-    	System.out.println("senderAccountDir은 "+senderAccountDir);
-    	System.out.println("senderAcnum은 "+senderAcnum);
-    	System.out.println("senderAcnumPath은 "+senderAcnumPath);
 
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
@@ -129,9 +126,6 @@ public class SearchAcholderName {
         files.add("메인메뉴로 돌아가기");
 
         for (String i : acnums) {
-        	System.out.println("i는 "+i);
-        	System.out.println("senderAcnum는 "+senderAcnum);
-
         	if (i.equals(senderAcnum)) {
         		continue;
         	}
