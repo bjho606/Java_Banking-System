@@ -7,14 +7,20 @@ import java.util.regex.Pattern;
 
 public class SearchAcholderName {
 	
+	private static String senderAccountDir = "";
+	private static String senderAcnum = "";
 	private static String senderAcnumPath = "";
 	private static String receiverAccountDir = "";
 	private static String receiverAcnumPath = "";
-
-	
 		
     public static void main(String name_id, String myAcnum) {
+    	senderAccountDir = name_id;
+    	senderAcnum = myAcnum + ".txt";
     	senderAcnumPath = name_id + "/" + myAcnum + ".txt";
+    	System.out.println("senderAccountDir은 "+senderAccountDir);
+    	System.out.println("senderAcnum은 "+senderAcnum);
+    	System.out.println("senderAcnumPath은 "+senderAcnumPath);
+
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
         System.out.println("송금할 사람의 이름을 입력해 주세요");
@@ -122,13 +128,19 @@ public class SearchAcholderName {
         List<String> files = new ArrayList<String>();
         files.add("메인메뉴로 돌아가기");
 
-        for (String i : acnums)
-            files.add(i);
+        for (String i : acnums) {
+        	System.out.println("i는 "+i);
+        	System.out.println("senderAcnum는 "+senderAcnum);
 
+        	if (i.equals(senderAcnum)) {
+        		continue;
+        	}
+            files.add(i);
+        }
         for (int i = 0; i < files.size(); i++) {
             System.out.println(i + ". " + files.get(i));
         }
-
+        
         selectAcnum(files);
     }
 
