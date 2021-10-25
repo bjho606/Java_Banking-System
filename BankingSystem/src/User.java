@@ -52,7 +52,10 @@ public class User {
 
 				} else if(mainMenuNum == 2) {
 					// 계좌 선택
-					if(accountSelect() == 0) {
+					int accountselectnum = accountSelect();
+					if(accountselectnum == 0) {
+						continue;
+					}else if(accountselectnum == 1) {
 						continue;
 					}
 
@@ -189,6 +192,12 @@ public class User {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if(account == null) {
+			System.out.println("계좌가 존재하지 않습니다.");
+			return 1;
+		}
+		
 		return -1;
 		
 	}
