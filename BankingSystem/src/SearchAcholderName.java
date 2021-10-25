@@ -115,12 +115,7 @@ public class SearchAcholderName {
         File dir = new File("./"+name_id);
 
         String[] acnums = dir.list();
-        if (acnums.length == 0) {
-            System.out.println("해당 계좌주는 계좌를 소유하고 있지 않아, 송금에 실패하였습니다. 메인메뉴로 돌아갑니다.");
-            User.mainMenu(); //메인으로 이동
-            return;
-        }
-
+       
         System.out.println("["+name_id+" 님의 계좌번호입니다. 송금 희망하는 계좌번호의 인덱스 번호를 입력해 주세요]");
         List<String> files = new ArrayList<String>();
         files.add("메인메뉴로 돌아가기");
@@ -130,6 +125,11 @@ public class SearchAcholderName {
         		continue;
         	}
             files.add(i);
+        }
+        if (files.size() == 1) {
+            System.out.println("해당 계좌주는 계좌를 소유하고 있지 않아, 송금에 실패하였습니다. 메인메뉴로 돌아갑니다.");
+            User.mainMenu(); //메인으로 이동
+            return;
         }
         for (int i = 0; i < files.size(); i++) {
             System.out.println(i + ". " + files.get(i));
