@@ -90,10 +90,10 @@ public class VirtualDate {
 			if(tmp1!=tmp2)
 				break;	
 		}
-		if(0<=digit&&digit<=5)
-			updating(1);
+		if(0<=digit&&digit<=5)	
+			updating(1);			//월,일 수정
 		else if(6<=digit&&digit<=7)
-			updating(2);
+			updating(2);			//일 수정
 		else if(digit==8)
 			return;
 	}
@@ -113,56 +113,109 @@ public class VirtualDate {
 		}
 	}
 	public static void modifyFile(File inFile,int type) {
+//		try {
+//			String thisLine = "";
+//			
+//			// 임시파일을 생성
+//			File outFile = new File("$$$$$$$$.tmp");
+//
+//			// 아규먼트로 받은 입력 파일
+//			FileInputStream fis = new FileInputStream(inFile);
+//			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+//
+//			// output 파일
+//			FileOutputStream fos = new FileOutputStream(outFile);
+//			PrintWriter out = new PrintWriter(fos);
+//
+//			int i = 1;
+//      
+//			//파일 내용을 한라인씩 읽어 삽입될 라인이 오면 문자열을 삽입
+//			while ((thisLine = in.readLine()) != null) {
+//			        if (i == 1) {
+//			        	
+//			        	if(type==1) {	//년 또는 월이 바뀐경우
+//			        		out.println("0 0");
+//			        	}else {			//일만 바뀐경우
+//			        		String tmp = thisLine;
+//			        		String[] accs = tmp.split(" ");
+//			        		tmp = "0 "+accs[1];
+//			        		out.println(tmp);
+//			        	}
+//			        }
+//			        else {
+//			        	out.println(thisLine);
+//			        }
+//			        i++;
+//			}
+//			out.flush();
+//			out.close();
+//			in.close();
+//
+//			inFile.delete();
+//
+//			//임시파일을 원래 파일명으로 변경
+//			outFile.renameTo(inFile);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		File file = inFile;		
+
+		String dummy = "";
+
 		try {
-			String thisLine = "";
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			//BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+
 			
-			// 임시파일을 생성
-			File outFile = new File("$$$$$$$$.tmp");
-
-			// 아규먼트로 받은 입력 파일
-			FileInputStream fis = new FileInputStream(inFile);
-			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-			// output 파일
-			FileOutputStream fos = new FileOutputStream(outFile);
-			PrintWriter out = new PrintWriter(fos);
-
-			int i = 1;
-      
-			//파일 내용을 한라인씩 읽어 삽입될 라인이 오면 문자열을 삽입
-			while ((thisLine = in.readLine()) != null) {
-			        if (i == 1) {
-			        	
-			        	if(type==1) {	//년 또는 월이 바뀐경우
-			        		out.println("0 0");
-			        	}else {			//일만 바뀐경우
-			        		String tmp = thisLine;
-			        		String[] accs = tmp.split(" ");
-			        		tmp = "0 "+accs[1];
-			        		out.println(tmp);
-			        	}
-			        }
-			        else {
-			        	out.println(thisLine);
-			        }
-			        i++;
+			String thisLine;
+			String firstLine = br.readLine();
+			
+			
+			if(type==1) {	//년 또는 월이 바뀐경우
+        		dummy += ("0 0" + "\r\n");
+        	}else {			//일만 바뀐경우
+        		String[] splits = firstLine.split(" ");
+        		String tmp = "0 "+splits[1];
+        		dummy += (tmp + "\r\n"); 
+        	}
+			
+			
+			
+			while((thisLine = br.readLine())!=null) {
+				dummy += (thisLine + "\r\n" ); 
 			}
-			out.flush();
-			out.close();
-			in.close();
+			
+			
+			
+			
+			FileWriter fw = new FileWriter(file.getPath());
 
-			inFile.delete();
+			fw.write(dummy);			
 
-			//임시파일을 원래 파일명으로 변경
-			outFile.renameTo(inFile);
-		} catch (FileNotFoundException e) {
+			//bw.close();
+
+			fw.close();
+
+			br.close();
+
+		} catch (Exception e) {
+
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
+		
 	}
+	
+	
+	
+	
 	public static String getDate() {
 		File file = new File("./time.txt");
 		Scanner virtualDateScanner;

@@ -184,13 +184,13 @@ public class Remit {
 				String temp = "2 "+Integer.toString(int_enteredRemit)+" "+
 						Integer.toString(balance-int_enteredRemit)+" "+date;
 				dummy += (temp + "\r\n");
-				System.out.println(temp);/////////////
+				//System.out.println(temp);/////////////
 			}else {
 				String temp = "2 "+Integer.toString(int_enteredRemit)+" "+
 						Integer.toString(balance+int_enteredRemit)+" "+date;
 					
 				dummy += (temp + "\r\n");
-				System.out.println(temp);/////////////
+				//System.out.println(temp);/////////////
 			}
 			
 			
