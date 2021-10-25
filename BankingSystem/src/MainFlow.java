@@ -60,7 +60,7 @@ public class MainFlow {
 		name = name.replaceAll(" ", "");
 		System.out.println("\n계정에 등록할 아이디를 입력해주세요.");
 		id = createId();
-		System.out.println("\n계정에 등록할 비밀번를 입력해주세요.");
+		System.out.println("\n계정에 등록할 비밀번호를 입력해주세요.");
 		pw = createPw();
 
 		// 계정 디렉토리 생성
