@@ -208,6 +208,11 @@ public class MainFlow {
 		String loginId, loginPw;
 		String loginName = "";
 		boolean isMatch = false;
+		File file = new File("./login.txt");
+		if(file.length() == 0) {
+			System.out.print("\n회원 정보가 하나도 없습니다.");
+			return;
+		}
 		
 		System.out.println("\n--------------------------");
 		System.out.println("< 로그인 >");
@@ -221,7 +226,6 @@ public class MainFlow {
 			loginPw = scan.nextLine();
 			
 			try {
-				File file = new File("./login.txt");
 				FileReader fileReader = new FileReader(file);
 				BufferedReader bufferedReader = new BufferedReader(fileReader);
 				
