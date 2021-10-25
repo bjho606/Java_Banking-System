@@ -1,5 +1,15 @@
+.DS_Store
+.project
+.idea
+.setting
+time.txt
+login.txt
+acnums_list.txt
+.classpath
+
 jdbc.properties
 
+*.iml
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
