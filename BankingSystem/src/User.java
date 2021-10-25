@@ -108,7 +108,7 @@ public class User {
 	}
 	
 	public void printCurrentUser() {
-		System.out.println(name + " " + id);
+		System.out.println(name + "(" + id + ")님 환영합니다.\n");
 	}
 	
 	

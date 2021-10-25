@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class MainFlow {
 	static Scanner scan = new Scanner(System.in);
 	// 입력조건 정규식들 
-	static String regExpMain = "^[0-2]$";									// 메뉴 선택
-	static String regExpKor = "^[가-힣\\s]*$";								// 이름 입력 (공백 허용)
-	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";			// 아이디 입력 
-	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%]).{1,}$";	// 비밀번호 입
+	static String regExpMain = "^[0-2]$";													// 메뉴 선택
+	static String regExpKor = "^[가-힣\\s]*$";												// 이름 입력 (공백 허용)
+	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";							// 아이디 입력 
+	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%])[A-Za-z0-9!@#$%]{1,}$";	// 비밀번호 입력
 	
 	public static void main(String[] args) {		
 		while(true) {
@@ -188,7 +188,6 @@ public class MainFlow {
 			System.out.print("입력 > ");
 			String tempPw = scan.nextLine();
 			if(!tempPw.matches(regExpPw)) {
-				// ????????????????????????????????????????????????????
 				System.out.println("비밀번호는 알파벳, 숫자, 특수 기호로만 입력하여 세 종류 모두 사용해야 합니다.");
 				continue;
 			} else if(tempPw.length() < 6 || tempPw.length() > 12) {
@@ -251,7 +250,7 @@ public class MainFlow {
 		}
 		
 		// 로그인 성공 
-		System.out.println("\n로그인에 성공하였습니다.\n\n");
+		System.out.println("\n로그인에 성공하였습니다.");
 		
 		// 로그인된 사용자로 객체 생성 (-> 뱅킹 작업)
 		User user = new User(loginName, loginId);
