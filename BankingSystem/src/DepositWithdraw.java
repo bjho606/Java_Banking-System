@@ -105,6 +105,23 @@ public class DepositWithdraw {
 			}
 			
 			
+			while(true) {
+				raf.seek(pos+1);
+				System.out.println(pos);
+				if(raf.read()>0) {
+					if(raf.readByte()=='\n'){
+						break;
+					}
+				}
+				if(raf.read()<0) {
+					pw.print('\n');
+					break;
+				}
+				
+				pos++;
+			}
+			
+			
 			raf.close();
 			
 			
@@ -205,12 +222,28 @@ public class DepositWithdraw {
 				String lastline = raf.readLine();
 
 			
-				
 				if(lastline != null) {
 					//pw.print('\n');
 					String[] last = lastline.split(" ");
 					cur_money = Integer.parseInt(last[2]);
 				}
+			}
+			
+			
+			while(true) {
+				raf.seek(pos+1);
+				System.out.println(pos);
+				if(raf.read()>0) {
+					if(raf.readByte()=='\n'){
+						break;
+					}
+				}
+				if(raf.read()<0) {
+					pw.print('\n');
+					break;
+				}
+				
+				pos++;
 			}
 			
 			
