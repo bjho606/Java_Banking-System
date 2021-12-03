@@ -165,6 +165,10 @@ public class DepositWithdraw {
 			pw.print(' ');
 			pw.print(cur_money + in_money);
 			pw.print(' ');
+			pw.print("NULL");
+			pw.print(' ');
+			pw.print("NULL");
+			pw.print(' ');
 			pw.print(v_date);
 			
 			pw.flush();
@@ -288,6 +292,10 @@ public class DepositWithdraw {
 			pw.print(out_money);
 			pw.print(' ');
 			pw.print(cur_money - out_money);
+			pw.print(' ');
+			pw.print("NULL");
+			pw.print(' ');
+			pw.print("NULL");
 			pw.print(' ');
 			pw.print(v_date);
 			

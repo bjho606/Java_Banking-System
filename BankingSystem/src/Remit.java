@@ -143,14 +143,14 @@ public class Remit {
 	private static void update_Amount(String sendingPath, String recievePath, String modified_sending_line,
 			String modified_recieve_line,int int_enteredRemit) {
 		// TODO Auto-generated method stub
-		modify_line(sendingPath, modified_sending_line, int_enteredRemit, 1);
-		modify_line(recievePath, modified_recieve_line, int_enteredRemit, 2);
+		modify_line(sendingPath, modified_sending_line, int_enteredRemit, 1, recievePath);
+		modify_line(recievePath, modified_recieve_line, int_enteredRemit, 2, sendingPath);
 	}
 	
 	
 	
-	
-	private static void modify_line(String path, String line, int int_enteredRemit, int type) {
+	//path_n : 송금을 보내는 쪽에선, 돈을 받는 계좌를 의미하고 / 송금 받는 쪽에선 돈을 보낸 계좌를 의미함.
+	private static void modify_line(String path, String line, int int_enteredRemit, int type, String path_n) {
 		String date = VirtualDate.getDate();
 		
 		File file = new File(path);		
@@ -169,6 +169,9 @@ public class Remit {
 			dummy += (line + "\r\n" );
 			int count = 1;
 			
+			String path_input = path_n.replace('/', ' ');
+			path_input = path_input.substring(0, path_input.length() - 4);
+			
 			while((thisLine = br.readLine())!=null) {
 				dummy += (thisLine + "\r\n" ); 
 				lastLine = thisLine;
@@ -181,13 +184,13 @@ public class Remit {
 				balance = Integer.parseInt(lastLine.split(" ")[2]);
 
 			if(type==1) {
-				String temp = "2 "+Integer.toString(int_enteredRemit)+" "+
-						Integer.toString(balance-int_enteredRemit)+" "+date;
+				String temp = "3 "+Integer.toString(int_enteredRemit)+" "+
+						Integer.toString(balance-int_enteredRemit)+" "+ path_input + " " + date;
 				dummy += (temp + "\r\n");
 				//System.out.println(temp);/////////////
 			}else {
 				String temp = "2 "+Integer.toString(int_enteredRemit)+" "+
-						Integer.toString(balance+int_enteredRemit)+" "+date;
+						Integer.toString(balance+int_enteredRemit)+" "+ path_input + " " + date;
 					
 				dummy += (temp + "\r\n");
 				//System.out.println(temp);/////////////
