@@ -131,11 +131,13 @@ public class User {
 				String name_id = name + "_" + id;
 				
 				if(name_id.equals(list_name[0])) {
-					for(int i=1; i<list_name.length; i++) {
+					
+					/*for(int i=1; i<list_name.length; i++) {
 						String[] list_acum = list_name[i].split("-");
 						al.add(Integer.parseInt(list_acum[1]));
 					}
-					Collections.sort(al);
+					Collections.sort(al);*/
+					
 					
 					System.out.println("[이름]");
 					String[] nameid = list_name[0].split("_");
@@ -143,15 +145,21 @@ public class User {
 					System.out.println("[계좌번호 목록]");
 					System.out.println("0. 메인 메뉴로 돌아가기");
 					
-					String[] acc = new String[al.size()];
-					for(int i=0; i<al.size(); i++) {
+					String[] acc = new String[list_name.length];
+					/*for(int i=0; i<al.size(); i++) {
 						for(int j=1; j<list_name.length; j++) {
 							int sp = Integer.parseInt(list_name[j].split("-")[1]);
 							if(sp == al.get(i)) {
+								al.remove(i);
 								System.out.println(i+1 + ". " + list_name[j]);
 								acc[i] = list_name[j];
 							}
 						}
+					}*/
+					
+					for(int i=0; i<list_name.length-1; i++) {
+						System.out.println(i+1 + ". " + list_name[i+1]);
+						acc[i] = list_name[i+1];
 					}
 					
 					System.out.print("입력 > ");
@@ -163,7 +171,7 @@ public class User {
 							acum = acum.trim();
 							user_acum = Integer.parseInt(acum);
 						}catch(NumberFormatException e) {
-							System.out.println("0이상"+ al.size() + "이하의 숫자로 입력해주세요.");
+							System.out.println("0이상"+ (list_name.length-1) + "이하의 숫자로 입력해주세요.");
 							System.out.print("입력> ");
 							continue;
 						}
@@ -171,12 +179,12 @@ public class User {
 						if(user_acum == 0) {
 							return 0;
 							//0입력했을 때 메인 메뉴로 돌아가는 코드 짜야됨.
-						}else if(user_acum <= al.size() & user_acum > 0) {
+						}else if(user_acum <= (list_name.length-1) & user_acum > 0) {
 							account = acc[user_acum-1]; 
 							acnumFile = account + ".txt";
 							break;
 						}else {
-							System.out.println("0이상"+ al.size() + "이하의 숫자로 입력해주세요.");
+							System.out.println("0이상"+ (list_name.length-1) + "이하의 숫자로 입력해주세요.");
 							System.out.print("입력> ");
 							continue;
 						}
