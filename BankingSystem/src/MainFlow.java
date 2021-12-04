@@ -15,8 +15,16 @@ public class MainFlow {
 	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";							// 아이디 입력 
 	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%])[A-Za-z0-9!@#$%]{1,}$";	// 비밀번호 입력
 	
+	// 작업 취소용 flag
+	static boolean escapeSignup = false;
+	static boolean escapeLogin = false;
+	
 	public static void main(String[] args) {	
 		while(true) {
+			// 작업취소 flag 초기화
+			escapeSignup = false;
+			escapeLogin = false;
+			
 			System.out.println("  ".trim());
 			System.out.println("[원하시는 메뉴를 선택하세요]");
 			System.out.println("0. 종료");
@@ -57,15 +65,18 @@ public class MainFlow {
 		// 회원 가입 조건
 		System.out.println("\n계정에 등록할 이름을 입력해주세요.");
 		name = createName();
+		if (escapeSignup == true) return;
 		name = name.replaceAll(" ", "");
 		System.out.println("\n계정에 등록할 아이디를 입력해주세요.");
 		id = createId();
+		if (escapeSignup == true) return;
 		System.out.println("\n계정에 등록할 비밀번호를 입력해주세요.");
 		pw = createPw();
+		if (escapeSignup == true) return;
 
 		// 계정 디렉토리 생성
 		String folderName = name + "_" + id;
-		String path = "./" + folderName;
+		String path = "./members/" + folderName;
 		File directory = new File(path);
 		
 		if(!directory.exists()) {
@@ -96,6 +107,11 @@ public class MainFlow {
 		while(true) {
 			System.out.print("입력 > ");
 			String tempName = scan.nextLine();
+			// 탈출 문자 입력 확인
+			if(tempName.contentEquals("cancel")) {
+				escapeSignup = true;
+				break;
+			}
 			if(!tempName.matches(regExpKor)) {
 				System.out.println("이름은 완전한 한글 문자만 입력 가능합니다.");
 				continue;
@@ -131,6 +147,11 @@ public class MainFlow {
 		while(true) {
 			System.out.print("입력 > ");
 			String tempId = scan.nextLine();
+			// 탈출 문자 입력 확인
+			if(tempId.contentEquals("cancel")) {
+				escapeSignup = true;
+				break;
+			}
 			char firstLetter = tempId.charAt(0);
 			if(!tempId.matches(regExpId)) {
 				System.out.println("아이디는 알파벳과 숫자로만 입력하여 두 종류 모두 사용해야 합니다.");
@@ -187,6 +208,11 @@ public class MainFlow {
 		while(true) {
 			System.out.print("입력 > ");
 			String tempPw = scan.nextLine();
+			// 탈출 문자 입력 확인
+			if(tempPw.contentEquals("cancel")) {
+				escapeSignup = true;
+				break;
+			}
 			if(!tempPw.matches(regExpPw)) {
 				System.out.println("비밀번호는 알파벳, 숫자, 특수 기호로만 입력하여 세 종류 모두 사용해야 합니다.");
 				continue;
@@ -221,9 +247,19 @@ public class MainFlow {
 			System.out.println("\n아이디를 입력해주세요.");
 			System.out.print("입력 > ");
 			loginId = scan.nextLine();
+			// 탈출 문자 입력 확인
+			if(loginId.contentEquals("cancel")) {
+				escapeLogin = true;
+				return;
+			}
 			System.out.println("비밀번호를 입력해주세요.");
 			System.out.print("입력 > ");
 			loginPw = scan.nextLine();
+			// 탈출 문자 입력 확인
+			if(loginPw.contentEquals("cancel")) {
+				escapeLogin = true;
+				return;
+			}
 			
 			try {
 				FileReader fileReader = new FileReader(file);
