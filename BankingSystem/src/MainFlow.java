@@ -15,7 +15,7 @@ public class MainFlow {
 	static String regExpId = "^(?=.*[A-Za-z])(?=.*[0-9]).{1,}$";							// 아이디 입력 
 	static String regExpPw = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%])[A-Za-z0-9!@#$%]{1,}$";	// 비밀번호 입력
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
 		while(true) {
 			System.out.println("  ".trim());
 			System.out.println("[원하시는 메뉴를 선택하세요]");

@@ -12,6 +12,7 @@ public class SearchTypeSelectMenu {
         System.out.println("0. 메인 메뉴로 돌아가기");
         System.out.println("1. 계좌주 검색하기");
         System.out.println("2. 계좌번호 검색하기");
+        System.out.println("3. 착오 송금 되돌려주기");
         while(true) {
             System.out.print("입력 > ");
             
@@ -22,9 +23,11 @@ public class SearchTypeSelectMenu {
             	SearchAcholderName.main(name_id, myAcnum);
                 break;
             }else if(menuSelect==2){
-
                 SearchAcnum.main(name_id,myAcnum);
                 break;
+            }else if(menuSelect==3){
+            	Reremit.main(name_id,myAcnum);
+            	break;
             }else {
                 System.out.println("0이상 2이하의 숫자로 입력해주세요.");
                 continue;
