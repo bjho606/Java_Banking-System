@@ -139,7 +139,7 @@ public class AccountCreator {
     private static void makeAccountNumFileInUserDirectory(String acNum, String name, String id) {
         try {
         	// 회원가입, 로그인으로 이미 해당폴더 만들어져있는 상황
-            String rootPath = name + "_" + id;
+            String rootPath = "./members/" + name + "_" + id;
             File f = new File(rootPath);
             if (f.exists() && f.isDirectory()) {
                 File f2 = new File(rootPath + "/" + acNum + ".txt");
