@@ -21,7 +21,7 @@ public class Reremit {
 		senderAcnumPath = myName_id + "/" + myAcnum + ".txt";
 		String currentDate = VirtualDate.inputVirtualDate();
 
-		String myPath=myName_id+"/"+myAcnum+".txt";
+		String myPath="./members"+myName_id+"/"+myAcnum+".txt";
 		try {
             File file = new File(myPath);
             FileReader filereader = new FileReader(file);
