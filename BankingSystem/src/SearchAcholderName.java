@@ -16,7 +16,7 @@ public class SearchAcholderName {
     public static void main(String name_id, String myAcnum) {
     	senderAccountDir = name_id;
     	senderAcnum = myAcnum + ".txt";
-    	senderAcnumPath = name_id + "/" + myAcnum + ".txt";
+    	senderAcnumPath = "./members/" + name_id + "/" + myAcnum + ".txt";
 
         Scanner sc = new Scanner(System.in);
         String AcholderName = "";
@@ -53,7 +53,7 @@ public class SearchAcholderName {
      */
     public static void searchAcInfo(String acholderName) {
 
-        File dir = new File("./");
+        File dir = new File("./members/");
         FilenameFilter filter = new FilenameFilter() {
             public boolean accept(File f, String name) {
                 return name.startsWith(acholderName+"_");
@@ -69,7 +69,6 @@ public class SearchAcholderName {
         System.out.println("[송금할 사람의 인덱스 번호를 입력해 주세요]");
 
         List<String> files = new ArrayList<String>();
-        files.add("메인메뉴로 돌아가기");
 
         for (String i : dirs)
             files.add(i);
@@ -92,12 +91,9 @@ public class SearchAcholderName {
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 
-        if (selectNum == 0) {
-           User.mainMenu(); // 메인으로
-        } else {
-        	receiverAccountDir = files.get(selectNum);
-            searchAcnum(files.get(selectNum)); // 해당 계좌주의 계좌번호 선택으로 이동
-        }
+        receiverAccountDir = files.get(selectNum);
+        searchAcnum(files.get(selectNum)); // 해당 계좌주의 계좌번호 선택으로 이동
+        
     }
 
     public static int selectNumCheck(String selectNum, int max) {
@@ -118,13 +114,12 @@ public class SearchAcholderName {
 		해당 계좌주의 계좌번호 확인
      */
     public static void searchAcnum(String name_id) {
-        File dir = new File("./"+name_id);
+        File dir = new File("./members/"+name_id);
 
         String[] acnums = dir.list();
        
         System.out.println("["+name_id+" 님의 계좌번호입니다. 송금 희망하는 계좌번호의 인덱스 번호를 입력해 주세요]");
         List<String> files = new ArrayList<String>();
-        files.add("메인메뉴로 돌아가기");
 
         for (String i : acnums) {
         	if (i.equals(senderAcnum)) {
@@ -132,7 +127,7 @@ public class SearchAcholderName {
         	}
             files.add(i);
         }
-        if (files.size() == 1) {
+        if (files.size() == 0) {
             System.out.println("해당 계좌주는 계좌를 소유하고 있지 않아, 송금에 실패하였습니다. 메인메뉴로 돌아갑니다.");
             User.mainMenu(); //메인으로 이동
             return;
@@ -160,14 +155,11 @@ public class SearchAcholderName {
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 
-        if (selectNum == 0) {
-            User.mainMenu(); // 메인으로
-        } else {
-        	receiverAcnumPath = receiverAccountDir + "/" + files.get(selectNum);
-            System.out.println("송금을 시작합니다");
-//            System.out.println(senderAcnumPath + "에서 "+ receiverAcnumPath + " 로 " + "송금을 시작합니다"); // 확인용
-            VirtualDate.inputVirtualDate();
-            Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
-        }
+        receiverAcnumPath = "./members/" + receiverAccountDir + "/" + files.get(selectNum);
+        System.out.println("송금을 시작합니다");
+        System.out.println(senderAcnumPath + "에서 "+ receiverAcnumPath + " 로 " + "송금을 시작합니다"); // 확인용
+        VirtualDate.inputVirtualDate();
+        Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
+        
     }
 }
