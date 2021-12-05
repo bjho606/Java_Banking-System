@@ -24,7 +24,13 @@ public class SearchAcholderName {
 
         do {
             System.out.print("입력 > ");
-            AcholderName = sc.nextLine().replaceAll(" ", "");
+            AcholderName = sc.nextLine();
+            // 탈출 문자 입력 확인
+ 			if(AcholderName.contentEquals("cancel")) {
+ 				User.escapeBankingTask = true;
+ 				return;
+ 			}
+            AcholderName = AcholderName.replaceAll(" ", "");
         } while (!nameIsRight(AcholderName));
 
         searchAcInfo(AcholderName);
@@ -146,6 +152,11 @@ public class SearchAcholderName {
         do {
             System.out.print("입력 > ");
             input = sc.nextLine();
+            // 탈출 문자 입력 확인
+ 			if(input.contentEquals("cancel")) {
+ 				User.escapeBankingTask = true;
+ 				return;
+ 			}
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 

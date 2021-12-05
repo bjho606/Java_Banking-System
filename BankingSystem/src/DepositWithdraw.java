@@ -136,6 +136,12 @@ public class DepositWithdraw {
 
 				try{	
 					in = scan.nextLine(); 
+					// 탈출 문자 입력 확인
+					if(in.contentEquals("cancel")) {
+						User.escapeBankingTask = true;
+						return;
+					}
+					
 					in = in.trim();
 					in_money = Integer.parseInt(in);
 				}catch(NumberFormatException e) {
@@ -264,6 +270,11 @@ public class DepositWithdraw {
 
 				try{	
 					out = scan.nextLine(); 
+					// 탈출 문자 입력 확인
+					if(out.contentEquals("cancel")) {
+						User.escapeBankingTask = true;
+						return;
+					}
 					out = out.trim();
 					out_money = Integer.parseInt(out);
 				}catch(NumberFormatException e) {

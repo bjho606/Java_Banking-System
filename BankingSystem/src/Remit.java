@@ -26,6 +26,11 @@ public class Remit {
 		System.out.print("입력>");
 		while(true) {
 			String enteredRemit = sc.nextLine();
+			// 탈출 문자 입력 확인
+			if(enteredRemit.contentEquals("cancel")) {
+				User.escapeBankingTask = true;
+				return;
+			}
 			if(enteredRemit.matches("^[0]$")) return;
 			enteredRemit = enteredRemit.trim();
 			if(!enteredRemit.matches("^[0-9]+$")) {

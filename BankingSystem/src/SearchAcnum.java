@@ -17,7 +17,10 @@ public class SearchAcnum {
         int menuSelect=-1;
         Scanner sc=new Scanner(System.in);
         System.out.println("검색할 계좌번호를 입력하세요.");
-        if ((receiverAcnumPath=filterInput()).equals("No result")){
+        receiverAcnumPath = filterInput();
+        // 탈출 문자 입력 확인 
+        if(User.escapeBankingTask == true) return;
+        if (receiverAcnumPath.equals("No result")){
             System.out.println("검색결과가 없습니다.");
             User.mainMenu();//메인메뉴로 돌아가기
         }else{
@@ -91,6 +94,11 @@ public class SearchAcnum {
         System.out.print("입력 > ");
         Scanner sc=new Scanner(System.in);
         String input=sc.nextLine();
+        // 탈출 문자 입력 확인
+		if(input.contentEquals("cancel")) {
+			User.escapeBankingTask = true;
+			return "";
+		}
         String acnum=input.trim().replaceAll("[ ]","");
         SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyyMMdd");
         if((hypenCount=isHypenError(acnum))==-1){

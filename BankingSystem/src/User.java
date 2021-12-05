@@ -21,6 +21,7 @@ public class User {
 	
 	// 작업 취소용 flag
 	public static boolean escapeAcCreate = false;
+	public static boolean escapeBankingTask = false;
 	
 	public User(String name, String id) {
 		this.name = name;
@@ -65,15 +66,18 @@ public class User {
 					}else if(accountselectnum == 1) {
 						continue;
 					}
-
-					System.out.println("[원하시는 메뉴를 선택하세요]");
-					System.out.println("0. 메인 메뉴로 돌아가기");
-					System.out.println("1. 통장내역 확인");
-					System.out.println("2. 입/출금");
-					System.out.println("3. 송금");
-					System.out.print("입력 > ");
 					
 					while(true) {
+						// 작업취소 flag 초기
+						escapeBankingTask = false;
+						
+						System.out.println("[원하시는 메뉴를 선택하세요]");
+						System.out.println("0. 메인 메뉴로 돌아가기");
+						System.out.println("1. 통장내역 확인");
+						System.out.println("2. 입/출금");
+						System.out.println("3. 송금");
+						System.out.print("입력 > ");
+						
 						String sub_mn;
 						int sub_menu;
 						try {
@@ -96,10 +100,12 @@ public class User {
 						}else if(sub_menu == 2) {
 							//입출금
 							DepositWithdraw.depositwithdraw(name, id, account);
+							if(escapeBankingTask == true) continue;
 							break;
 						}else if(sub_menu == 3) {
 							//송금
 							SearchTypeSelectMenu.main(name_id, account);
+							if(escapeBankingTask == true) continue;
 							break;
 						}else {
 							System.out.println("0이상 2이하의 숫자로 입력해주세요");
