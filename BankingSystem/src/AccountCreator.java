@@ -20,6 +20,12 @@ public class AccountCreator {
 
         while(!isValid) {
             String numOfInput = scanner.nextLine();
+            // 탈출 문자 입력 확인
+ 			if(numOfInput.contentEquals("cancel")) {
+ 				User.escapeAcCreate = true;
+ 				break;
+ 			}
+            
             if (numOfInput.contains(" ")) {
                 System.out.println("입력된 계좌번호 앞 4자리 숫자 중 공백이 포함되었습니다. 다시 입력해주세요.");
                 System.out.print("입력>");
@@ -90,6 +96,7 @@ public class AccountCreator {
 
         // 계좌번호 앞 4자리 입력
         String acNum = createAccountNum(virtualDate);
+        if(User.escapeAcCreate == true) return;
 
         // 계좌번호 리스트 파일에 적기
         addAccountNumInListFile(acNum, name, id);

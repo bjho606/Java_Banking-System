@@ -19,6 +19,9 @@ public class User {
 	static String name_id;
 	static String acnumFile = "";
 	
+	// 작업 취소용 flag
+	public static boolean escapeAcCreate = false;
+	
 	public User(String name, String id) {
 		this.name = name;
 		this.id = id;
@@ -31,6 +34,9 @@ public class User {
 
 	public static void mainMenu() {
 		while(true) {
+			// 작업취소 flag 초기화
+			escapeAcCreate = false;
+			
 			System.out.println("[원하시는 메뉴를 선택하세요]");
 			System.out.println("0. 로그아웃");
 			System.out.println("1. 계좌 생성");
@@ -49,6 +55,7 @@ public class User {
 				} else if(mainMenuNum == 1) {
 					// 계좌 생성
 					AccountCreator.run(name, id);
+					if(escapeAcCreate == true) continue;
 
 				} else if(mainMenuNum == 2) {
 					// 계좌 선택
