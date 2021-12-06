@@ -57,11 +57,11 @@ public class DepositWithdraw {
 	//입금 부분
 	public static void deposit(String n, String i, String ac) {
 		//가상일자 함수
-		String v_date = VirtualDate.inputVirtualDate();
+		//String v_date = VirtualDate.inputVirtualDate();
 
 
 		try {
-			String f = "./" + n + "_" + i + "/" + ac + ".txt";
+			String f = "./members/" + n + "_" + i + "/" + ac + ".txt";
 			File file = new File(f);
 			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -69,51 +69,129 @@ public class DepositWithdraw {
 				
 			RandomAccessFile raf = new RandomAccessFile(file, "r");
 			
-			long fileSize = raf.length();
-			long pos = fileSize - 1;
-			
-			raf.seek(pos);
-			pos = pos - 1;
-
-		
+			long fileSize = 0;
+			long pos = 0;
 			int cur_money = 0;
-			while(true) {
+			String v_date = null;
+			
+			loop:
+			while(true){
+				v_date = VirtualDate.inputVirtualDate();
+				
+				fileSize = raf.length();
+				pos = fileSize - 1;
+				
+				
 				raf.seek(pos);
-				if(raf.readByte()=='\n'){
-
-					break;
-				}
-				pos--;
-				if(pos == 0) {
-					cur_money = 0;
-					break;
-				}
-			}
-
-			if(pos != 0) {
-				raf.seek(pos+1);
-				
-				String lastline = raf.readLine();
+				pos = pos - 1;
 
 			
 				
-				if(lastline != null) {
-					//pw.print('\n');
-					String[] last = lastline.split(" ");
-					cur_money = Integer.parseInt(last[2]);
+				while(true) {
+					raf.seek(pos);
+					if(raf.readByte()=='\n'){
+
+						break;
+					}
+					pos--;
+					if(pos == 0) {
+						cur_money = 0;
+						break loop;
+					}
+				}
+
+				String[] last = null;
+				int count = 0;
+				if(pos != 0) {
+					raf.seek(pos+1);
+					
+					String lastline = raf.readLine();
+
+					if(lastline != null) {
+						//pw.print('\n');
+						last = lastline.split(" ");
+						cur_money = Integer.parseInt(last[2]);
+					}
+					
+					
+					//입출금 횟수 제한
+
+					if(v_date.equals(last[5])) {
+						
+						if(Integer.parseInt(last[0]) == 0) {
+							count++;
+						}
+						
+						while(true){
+							pos = pos - 1;
+							if(pos < 0) {
+								break loop;
+							}
+							while(true) {
+								raf.seek(pos);
+								if(raf.readByte()=='\n'){
+									break;
+								}
+								pos--;
+								if(pos == 0) {
+									break;
+								}
+							}
+							
+							if(pos != 0) {
+								raf.seek(pos+1);
+						
+								lastline = raf.readLine();
+								
+								if(lastline != null) {
+									last = lastline.split(" ");
+									if(last.length == 6) {
+										if(v_date.equals(last[5])) {
+											if(Integer.parseInt(last[0]) == 0) {
+												count++;
+											}
+										}else {
+											break loop;
+										}
+									}else {
+										break loop;
+									}
+								}else {
+									break loop;
+								}
+							}
+							
+							if(count == 2) {
+								break;
+							}
+						}
+					}else {
+						break;
+					}
+				}
+				if(count == 2) {
+					System.out.println("해당 일자로는 더 이상 입금하실 수 없습니다. 다시 입력해주세요.");
+					continue;
 				}
 			}
+	
 			
-			
+			pos = raf.length() - 1;
 			while(true) {
 				raf.seek(pos+1);
-				System.out.println(pos);
 				if(raf.read()>0) {
 					if(raf.readByte()=='\n'){
+						//System.out.println("00");
 						break;
 					}
 				}
 				if(raf.read()<0) {
+					raf.seek(pos);
+					if(raf.readByte()=='\n') {
+						//System.out.println("000");
+						break;
+					}
+					//System.out.println("0000");
 					pw.print('\n');
 					break;
 				}
@@ -164,18 +242,20 @@ public class DepositWithdraw {
 				}
 			}
 
+			if(in_money != 0) {
+				pw.print(0);
+				pw.print(' ');
+				pw.print(in_money);
+				pw.print(' ');
+				pw.print(cur_money + in_money);
+				pw.print(' ');
+				pw.print("NULL");
+				pw.print(' ');
+				pw.print("NULL");
+				pw.print(' ');
+				pw.print(v_date);
+			}
 			
-			pw.print(0);
-			pw.print(' ');
-			pw.print(in_money);
-			pw.print(' ');
-			pw.print(cur_money + in_money);
-			pw.print(' ');
-			pw.print("NULL");
-			pw.print(' ');
-			pw.print("NULL");
-			pw.print(' ');
-			pw.print(v_date);
 			
 			pw.flush();
 			pw.close();
@@ -193,11 +273,11 @@ public class DepositWithdraw {
 	//출금 부분
 	public static void withdraw(String n, String i, String ac) {
 		//가상일자 함수
-		String v_date = VirtualDate.inputVirtualDate();
+		//String v_date = VirtualDate.inputVirtualDate();
 
 
 		try {
-			String f = "./" + n + "_" + i + "/" + ac + ".txt";
+			String f = "./members/" + n + "_" + i + "/" + ac + ".txt";
 			File file = new File(f);
 			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -205,56 +285,136 @@ public class DepositWithdraw {
 				
 			RandomAccessFile raf = new RandomAccessFile(file, "r");
 			
-			long fileSize = raf.length();
-			long pos = fileSize - 1;
-			
-			raf.seek(pos);
-			pos = pos - 1;
-
-		
+			long fileSize = 0;
+			long pos = 0;
 			int cur_money = 0;
-			while(true) {
-				raf.seek(pos);
-				if(raf.readByte()=='\n'){
-
-					break;
-				}
-				pos--;
-				if(pos == 0) {
-					cur_money = 0;
-					break;
-				}
-			}
-
-			if(pos != 0) {
-				raf.seek(pos+1);
+			String v_date = null;
+			
+			loop:
+			while(true){
+				v_date = VirtualDate.inputVirtualDate();
 				
-				String lastline = raf.readLine();
+				fileSize = raf.length();
+				pos = fileSize - 1;
+				
+				
+				raf.seek(pos);
+				pos = pos - 1;
 
 			
-				if(lastline != null) {
-					//pw.print('\n');
-					String[] last = lastline.split(" ");
-					cur_money = Integer.parseInt(last[2]);
+				
+				while(true) {
+					raf.seek(pos);
+					if(raf.readByte()=='\n'){
+
+						break;
+					}
+					pos--;
+					if(pos == 0) {
+						cur_money = 0;
+						break loop;
+					}
+				}
+
+				String[] last = null;
+				int count = 0;
+				if(pos != 0) {
+					raf.seek(pos+1);
+					
+					String lastline = raf.readLine();
+
+					if(lastline != null) {
+						//pw.print('\n');
+						last = lastline.split(" ");
+						cur_money = Integer.parseInt(last[2]);
+					}
+					
+					
+					//입출금 횟수 제한
+
+					if(v_date.equals(last[5])) {
+						
+						if(Integer.parseInt(last[0]) == 1) {
+							count++;
+						}
+						
+						while(true){
+							pos = pos - 1;
+							if(pos < 0) {
+								break loop;
+							}
+							while(true) {
+								raf.seek(pos);
+								if(raf.readByte()=='\n'){
+									break;
+								}
+								pos--;
+								if(pos == 0) {
+									break;
+								}
+							}
+							
+							if(pos != 0) {
+								raf.seek(pos+1);
+						
+								lastline = raf.readLine();
+								
+								if(lastline != null) {
+									last = lastline.split(" ");
+									if(last.length == 6) {
+										if(v_date.equals(last[5])) {
+											if(Integer.parseInt(last[0]) == 1) {
+												count++;
+											}
+										}else {
+											break loop;
+										}
+									}else {
+										break loop;
+									}
+								}else {
+									break loop;
+								}
+							}
+							
+							if(count == 2) {
+								break;
+							}
+						}
+					}else {
+						break;
+					}
+				}
+				if(count == 2) {
+					System.out.println("해당 일자로는 더 이상 출금하실 수 없습니다. 다시 입력해주세요.");
+					continue;
 				}
 			}
+	
 			
-			
+			pos = raf.length() - 1;
 			while(true) {
 				raf.seek(pos+1);
-				System.out.println(pos);
 				if(raf.read()>0) {
 					if(raf.readByte()=='\n'){
+						//System.out.println("00");
 						break;
 					}
 				}
 				if(raf.read()<0) {
+					raf.seek(pos);
+					if(raf.readByte()=='\n') {
+						//System.out.println("000");
+						break;
+					}
+					//System.out.println("0000");
 					pw.print('\n');
 					break;
 				}
 				
 				pos++;
 			}
+			
 			
 			
 			raf.close();
@@ -297,18 +457,20 @@ public class DepositWithdraw {
 				}
 			}
 
-
-			pw.print(1);
-			pw.print(' ');
-			pw.print(out_money);
-			pw.print(' ');
-			pw.print(cur_money - out_money);
-			pw.print(' ');
-			pw.print("NULL");
-			pw.print(' ');
-			pw.print("NULL");
-			pw.print(' ');
-			pw.print(v_date);
+			if(out_money != 0) {
+				pw.print(1);
+				pw.print(' ');
+				pw.print(out_money);
+				pw.print(' ');
+				pw.print(cur_money - out_money);
+				pw.print(' ');
+				pw.print("NULL");
+				pw.print(' ');
+				pw.print("NULL");
+				pw.print(' ');
+				pw.print(v_date);
+			}
+			
 			
 			pw.flush();
 			pw.close();
