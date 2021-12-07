@@ -6,13 +6,30 @@ public class Remit {
 	static int caseLimit = 10000;
 	static int dailyLimit = 20000;
 	static int monthlyLimit = 50000;
-	public static void inputRemit(String sendingPath, String recievePath) {
+	static String members = "./members";
+	
+	public static void inputRemit(String senderPath, String recieverPath) {
 		Scanner sc = new Scanner(System.in);
 		int sending_dailyAmount;
 		int sending_monthlyAmount;
 		int recieve_dailyAmount;
 		int recieve_monthlyAmount;
 		int balance;
+		String sender;
+		String reciever;
+		//String senderAccount;
+		//String recieverAccount;
+		String[] sendingPath_splits;
+		String[] recievePath_splits;
+		String sendingPath = members+"/"+senderPath;
+		String recievePath = members+"/"+recieverPath;
+		
+		sendingPath_splits = sendingPath.split("/");
+		recievePath_splits = recievePath.split("/");
+		sender = sendingPath_splits[3];
+		reciever = recievePath_splits[3];
+		//senderAccount = sendingPath_splits[4];
+		//recieverAccount = recievePath_splits[4];
 		
 		String[] sending_splits = getAmounts(sendingPath).split(" ");
 		sending_dailyAmount = Integer.parseInt(sending_splits[0]);
@@ -22,70 +39,111 @@ public class Remit {
 		recieve_monthlyAmount = Integer.parseInt(recieve_splits[1]);
 		balance = getBalance(sendingPath);
 		
-		System.out.println("송금액을 입력해주세요. 0만 입력 시 메인메뉴로 이동합니다.");
-		System.out.print("입력>");
-		while(true) {
-			String enteredRemit = sc.nextLine();
-			// 탈출 문자 입력 확인
-			if(enteredRemit.contentEquals("cancel")) {
-				User.escapeBankingTask = true;
+		if(!sender.equals(reciever)) {
+			System.out.println("송금액을 입력해주세요. cancel만 입력 시 메인메뉴로 이동합니다.");
+			System.out.print("입력>");
+			while(true) {
+				String enteredRemit = sc.nextLine();
+				// 탈출 문자 입력 확인
+				if(enteredRemit.contentEquals("cancel")) {
+					User.escapeBankingTask = true;
+					return;
+				}
+				if(!enteredRemit.matches("^[0-9]+$")) {
+					System.out.println("송금액의 문법규칙이 어긋났습니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				
+				int int_enteredRemit = Integer.parseInt(enteredRemit);
+				
+				if(int_enteredRemit == 0) {
+					System.out.println("0보다 큰 송금액을 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit>balance) {
+					System.out.println("계좌안의 예금액보다 적은 송금액을 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit>caseLimit) {
+					System.out.println("건당한도액보다 적은 송금액을 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit+sending_dailyAmount>dailyLimit) {
+					System.out.println("송금 시 송금하는 계좌의 일당 한도액을 초과합니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit+sending_monthlyAmount>monthlyLimit) {
+					System.out.println("송금 시 송금하는 계좌의 월당 한도액을 초과합니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit+recieve_dailyAmount>dailyLimit) {
+					System.out.println("송금 시 송금받는 계좌의 일당 한도액을 초과합니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit+recieve_monthlyAmount>monthlyLimit) {
+					System.out.println("송금 시 송금받는 계좌의 월당 한도액을 초과합니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				
+				String modified_sending_dailyAmount = Integer.toString(int_enteredRemit+sending_dailyAmount);
+				String modified_sending_monthlyAmount = Integer.toString(int_enteredRemit+sending_monthlyAmount);
+				String modified_sending_line = modified_sending_dailyAmount+" "+modified_sending_monthlyAmount;
+				
+				String modified_recieve_dailyAmount = Integer.toString(int_enteredRemit+recieve_dailyAmount);
+				String modified_recieve_monthlyAmount = Integer.toString(int_enteredRemit+recieve_monthlyAmount);
+				String modified_recieve_line = modified_recieve_dailyAmount+" "+modified_recieve_monthlyAmount;
+				
+				
+				update_Amount(sendingPath, recievePath,modified_sending_line,modified_recieve_line,int_enteredRemit);
+				
+				System.out.println("송금 완료");
 				return;
 			}
-			if(enteredRemit.matches("^[0]$")) return;
-			enteredRemit = enteredRemit.trim();
-			if(!enteredRemit.matches("^[0-9]+$")) {
-				System.out.println("송금액의 문법규칙이 어긋났습니다. 다시 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			
-			int int_enteredRemit = Integer.parseInt(enteredRemit);
-			
-			if(int_enteredRemit>balance) {
-				System.out.println("계좌안의 예금액보다 적은 송금액을 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			if(int_enteredRemit>caseLimit) {
-				System.out.println("건당한도액보다 적은 송금액을 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			if(int_enteredRemit+sending_dailyAmount>dailyLimit) {
-				System.out.println("송금 시 송금하는 계좌의 일당 한도액을 초과합니다. 다시 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			if(int_enteredRemit+sending_monthlyAmount>monthlyLimit) {
-				System.out.println("송금 시 송금하는 계좌의 월당 한도액을 초과합니다. 다시 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			if(int_enteredRemit+recieve_dailyAmount>dailyLimit) {
-				System.out.println("송금 시 송금받는 계좌의 일당 한도액을 초과합니다. 다시 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			if(int_enteredRemit+recieve_monthlyAmount>monthlyLimit) {
-				System.out.println("송금 시 송금받는 계좌의 월당 한도액을 초과합니다. 다시 입력해주세요.");
-				System.out.print("입력>");
-				continue;
-			}
-			
-			String modified_sending_dailyAmount = Integer.toString(int_enteredRemit+sending_dailyAmount);
-			String modified_sending_monthlyAmount = Integer.toString(int_enteredRemit+sending_monthlyAmount);
-			String modified_sending_line = modified_sending_dailyAmount+" "+modified_sending_monthlyAmount;
-			
-			String modified_recieve_dailyAmount = Integer.toString(int_enteredRemit+recieve_dailyAmount);
-			String modified_recieve_monthlyAmount = Integer.toString(int_enteredRemit+recieve_monthlyAmount);
-			String modified_recieve_line = modified_recieve_dailyAmount+" "+modified_recieve_monthlyAmount;
-			
-			
-			update_Amount(sendingPath, recievePath,modified_sending_line,modified_recieve_line,int_enteredRemit);
-			
-			System.out.println("송금 완료");
-			return;
 		}
+		else {	//sender와 reciever가 같을때
+			System.out.println("송금액을 입력해주세요. cancel만 입력 시 메인메뉴로 이동합니다.");
+			System.out.print("입력>");
+			while(true) {
+				String enteredRemit = sc.nextLine();
+				// 탈출 문자 입력 확인
+				if(enteredRemit.contentEquals("cancel")) {
+					User.escapeBankingTask = true;
+					return;
+				}
+				if(!enteredRemit.matches("^[0-9]+$")) {
+					System.out.println("송금액의 문법규칙이 어긋났습니다. 다시 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				
+				int int_enteredRemit = Integer.parseInt(enteredRemit);
+				
+				if(int_enteredRemit == 0) {
+					System.out.println("0보다 큰 송금액을 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				if(int_enteredRemit>balance) {
+					System.out.println("계좌안의 예금액보다 적은 송금액을 입력해주세요.");
+					System.out.print("입력>");
+					continue;
+				}
+				
+				update_Amount_sameId(sendingPath, recievePath,int_enteredRemit);
+				
+				System.out.println("송금 완료");
+				return;
+			}
+		}
+		
 	}
 
 
@@ -136,11 +194,16 @@ public class Remit {
 	private static void update_Amount(String sendingPath, String recievePath, String modified_sending_line,
 			String modified_recieve_line,int int_enteredRemit) {
 		// TODO Auto-generated method stub
-		modify_line(sendingPath, modified_sending_line, int_enteredRemit, 1, recievePath);
-		modify_line(recievePath, modified_recieve_line, int_enteredRemit, 2, sendingPath);
+		modify_line(sendingPath, modified_sending_line, int_enteredRemit, 1, recievePath);	//3
+		modify_line(recievePath, modified_recieve_line, int_enteredRemit, 2, sendingPath);	//2
 	}
 	
-	
+	private static void update_Amount_sameId(String sendingPath, String recievePath, int int_enteredRemit) {
+		// TODO Auto-generated method stub
+		modify_line_sameId(sendingPath, int_enteredRemit, 1, recievePath);	//3
+		modify_line_sameId(recievePath, int_enteredRemit, 2, sendingPath);	//2
+	}
+
 	
 	//path_n : 송금을 보내는 쪽에선, 돈을 받는 계좌를 의미하고 / 송금 받는 쪽에선 돈을 보낸 계좌를 의미함.
 	private static void modify_line(String path, String line, int int_enteredRemit, int type, String path_n) {
@@ -163,7 +226,7 @@ public class Remit {
 			int count = 1;
 			
 			String path_input = path_n.replace('/', ' ');
-			path_input = path_input.substring(0, path_input.length() - 4);
+			path_input = path_input.substring(10, path_input.length() - 4);
 			
 			while((thisLine = br.readLine())!=null) {
 				dummy += (thisLine + "\r\n" ); 
@@ -209,4 +272,73 @@ public class Remit {
 			e.printStackTrace();
 		}
 	}
+	
+	private static void modify_line_sameId(String path, int int_enteredRemit, int type, String path_n) {
+		// TODO Auto-generated method stub
+		String date = VirtualDate.getDate();
+		
+		File file = new File(path);		
+
+		String dummy = "";
+
+		try {
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			//BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+
+			
+			String thisLine;
+			String lastLine = "";
+			String firstLine = br.readLine();
+			dummy += (firstLine + "\r\n" );
+			int count = 1;
+			
+			String path_input = path_n.replace('/', ' ');
+			path_input = path_input.substring(10, path_input.length() - 4);
+			
+			while((thisLine = br.readLine())!=null) {
+				dummy += (thisLine + "\r\n" ); 
+				lastLine = thisLine;
+				count++;
+			}
+			
+			int balance;
+			if(count==1) balance=0;
+			else
+				balance = Integer.parseInt(lastLine.split(" ")[2]);
+
+			if(type==1) {
+				String temp = "3 "+Integer.toString(int_enteredRemit)+" "+
+						Integer.toString(balance-int_enteredRemit)+" "+ path_input + " " + date;
+				dummy += (temp + "\r\n");
+				//System.out.println(temp);/////////////
+			}else {
+				String temp = "2 "+Integer.toString(int_enteredRemit)+" "+
+						Integer.toString(balance+int_enteredRemit)+" "+ path_input + " " + date;
+					
+				dummy += (temp + "\r\n");
+				//System.out.println(temp);/////////////
+			}
+			
+			
+			
+			
+			FileWriter fw = new FileWriter(path);
+
+			fw.write(dummy);			
+
+			//bw.close();
+
+			fw.close();
+
+			br.close();
+
+		} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+	}
+	
 }
