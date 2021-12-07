@@ -11,7 +11,7 @@ public class SearchAcnum {
 
 	
     public static void main(String myName_id,String myAcnum) {
-    	senderAcnumPath = myName_id + "/" + myAcnum + ".txt";
+    	senderAcnumPath = "./members/"+myName_id + "/" + myAcnum + ".txt";
     	
         
         int menuSelect=-1;
@@ -31,8 +31,8 @@ public class SearchAcnum {
         		User.mainMenu();
         	}   	
             StringTokenizer st=new StringTokenizer(receiverAcnumPath,"_");
-            String name=st.nextToken();
-            System.out.printf("[계좌번호 검색 결과]\n이름:%s\n\n",name);
+            String name[]=st.nextToken().split("/");
+            System.out.printf("[계좌번호 검색 결과]\n이름:%s\n\n",name[2]);
             System.out.println("[수행할 동작을 결정하세요]");
             System.out.println("0. 메인 메뉴로 돌아가기");
             System.out.println("1. 송금 가상일자 입력하기");
@@ -74,7 +74,7 @@ public class SearchAcnum {
                 String name_id=st.nextToken();
                 while(st.hasMoreTokens()){
                     if (account.equals(st.nextToken())){
-                        return name_id+"/"+account;
+                        return "./members/"+name_id+"/"+account;
                     }
                 }
             }
