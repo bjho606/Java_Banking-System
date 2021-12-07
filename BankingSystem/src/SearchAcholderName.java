@@ -155,9 +155,10 @@ public class SearchAcholderName {
             selectNum = selectNumCheck(input, files.size());
         } while (selectNum == -1);
 
-        receiverAcnumPath = "./members/" + receiverAccountDir + "/" + files.get(selectNum);
+//        receiverAcnumPath = "./members/" + receiverAccountDir + "/" + files.get(selectNum);
+        receiverAcnumPath = receiverAccountDir + "/" + files.get(selectNum);        
         System.out.println("송금을 시작합니다");
-        System.out.println(senderAcnumPath + "에서 "+ receiverAcnumPath + " 로 " + "송금을 시작합니다"); // 확인용
+//        System.out.println(senderAcnumPath + "에서 "+ receiverAcnumPath + " 로 " + "송금을 시작합니다"); // 확인용
         VirtualDate.inputVirtualDate();
         Remit.inputRemit(senderAcnumPath, receiverAcnumPath);
         
