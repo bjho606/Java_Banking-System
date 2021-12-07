@@ -18,6 +18,7 @@ public class User {
 	static String account;
 	static String name_id;
 	static String acnumFile = "";
+	static String members = "./members";
 	
 	// 작업 취소용 flag
 	public static boolean escapeAcCreate = false;
@@ -225,7 +226,7 @@ public class User {
 	
 	public static void printHistory(String userFile, String account) {
 		try {
-			Scanner fileSc = new Scanner(new File(userFile+"/"+account));
+			Scanner fileSc = new Scanner(new File(members+"/"+userFile+"/"+account));
 			Scanner sc = new Scanner(System.in);
 			String ch = "";
 			ch = fileSc.nextLine();
@@ -235,10 +236,10 @@ public class User {
 			    System.out.println(ch);
 			}
 			while(true) {
-				System.out.println("나가려면 0을 입력하세요.");
+				System.out.println("나가려면 cancel을 입력하세요.");
 				System.out.print("입력>");
 				String tmp = sc.nextLine();
-				if(tmp.matches("^[0]$"))
+				if(tmp.matches("^cancel$"))
 					break;
 			}
 		} catch (FileNotFoundException e) {
